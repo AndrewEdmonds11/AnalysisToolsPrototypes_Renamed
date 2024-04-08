@@ -14,3 +14,4 @@ Andy's Pros:
 Andy's Cons:
  * no access to SubRun- or Run-level data products
  * need to know details of full data products
+ * no configuration interface to e.g. have user choose histogram limits etc.
