@@ -2,8 +2,10 @@
 
 ## How to Run
 
- source setup.sh
- root -l art_gallery_prototype_macro.C\(\"/path/to/art/file\"\)
+```
+source setup.sh
+root -l art_gallery_prototype_macro.C\(\"/path/to/art/file\"\)
+```
 
 ## Pros and Cons
 
