@@ -1,5 +1,8 @@
 # Prototype using Gallery to read Art files
 
+## What It Does
+This ROOT macro makes a simple histogram of the reconstructed momentum at the tracker entrance for downstream electron tracks
+
 ## How to Run
 
 ```
@@ -17,3 +20,8 @@ Andy's Cons:
  * no access to SubRun- or Run-level data products
  * need to know details of full data products
  * no configuration interface to e.g. have user choose histogram limits etc.
+
+## Next Steps
+* Make histograms with time cuts
+* Make it a compiled program rather than a ROOT macro?
+* Add a simple configuration interface?
