@@ -18,6 +18,15 @@ mkdir ntuple_interface_name
 
 where ```ntuple``` is the kind of ntuple you are running on (e.g. ```art```, ```skim```, ```trkana```, ```stn```, ...), ```interface``` is the kind of interface you are prototyping (e.g.  ```root```, ```python```, ```offline```, ```gallery```, ...), and ```name``` is your name. Don't feel restricted to the examples listed here: if you have a better name for the directory - go for it!
 
+You can also make a list of files to run on:
+
+```
+setup mu2e
+setup mu2efiletools
+mkdir filelists
+mu2eDatasetFileList mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art > filelists/mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art.list
+```
+
 ## Committing and Pushing
 
 Once you are ready to commit and push your prototype, you can do:

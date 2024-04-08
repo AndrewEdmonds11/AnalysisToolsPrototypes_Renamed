@@ -23,5 +23,6 @@ Andy's Cons:
 
 ## Next Steps
 * Make histograms with time cuts
+* Make it read multiple files?
 * Make it a compiled program rather than a ROOT macro?
 * Add a simple configuration interface?
