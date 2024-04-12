@@ -41,7 +41,7 @@ art_gallery_prototype_macro(std::string const& filename)
   double max_mom = 110;
   double mom_bin_width = 0.5;
   int n_mom_bins = (max_mom - min_mom) / mom_bin_width;
-  TH1D* h_RecoMom = new TH1D("h_RecoMom", "Reconstructed Momentum", n_mom_bins,min_mom,max_mom);
+  TH1D h_RecoMom("h_RecoMom", "Reconstructed Momentum", n_mom_bins,min_mom,max_mom);
 
   // We'll record the time it takes to process each gallery::Event.
   vector<microseconds> times;
@@ -56,7 +56,7 @@ art_gallery_prototype_macro(std::string const& filename)
         for(size_t ikinter = 0; ikinter < dem.intersections().size(); ++ikinter){
           auto const& kinter = dem.intersections()[ikinter];
           if (kinter.surfaceId() == mu2e::SurfaceIdDetail::TT_Front) {
-            h_RecoMom->Fill(kinter.momentum3().R());
+            h_RecoMom.Fill(kinter.momentum3().R());
           }
         }
       }
@@ -64,6 +64,11 @@ art_gallery_prototype_macro(std::string const& filename)
 
     times.push_back(duration_cast<microseconds>(system_clock::now() - t0));
   }
+
+  TFile outfile("macro_output.root", "RECREATE");
+  h_RecoMom.Write();
+  outfile.Close();
+
   auto const elapsed_time =
     duration_cast<milliseconds>(system_clock::now() - start_time);
   auto const sum_times = accumulate(begin(times), end(times), microseconds(0));
