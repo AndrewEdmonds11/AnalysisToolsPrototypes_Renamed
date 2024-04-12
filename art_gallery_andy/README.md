@@ -46,7 +46,7 @@ Andy's Cons:
 ## Other notes
 
 | commit hash | script | notes | time per event [ms] | total time [ms] | comment |
-|----|----|----|-----|-----|
+|----|----|----|-----|-----|------|
 | 5bff4d2 | art_gallery_prototype_macro.C | one file: mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.001210_00000255.art | 0.353 | 5742 | |
 | c2e809c | art_gallery_prototype_macro.C | as above but with start_time defined before histogram making | 0.367 | 6032 | |
 | e5e9d64 | art_gallery_prototype_main | one file: mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.001210_00000255.art | 0.366 | 6615 | |
