@@ -32,3 +32,4 @@ Andy's Cons:
 | commit hash | script | notes | time per event [ms] | total time [ms] |
 |----|----|----|-----|-----|
 | 5bff4d2 | art_gallery_prototype_macro.C | one file: mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.001210_00000255.art | 0.0353 | 5742 |
+| c2e809c | art_gallery_prototype_macro.C | as above but with start_time defined before histogram making | 0.0367 | 6032 |
