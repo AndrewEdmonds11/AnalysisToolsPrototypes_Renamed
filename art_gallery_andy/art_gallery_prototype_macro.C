@@ -26,6 +26,9 @@ using namespace std::chrono;
 void
 art_gallery_prototype_macro(std::string const& filename)
 {
+
+  auto start_time = system_clock::now();
+
   InputTag dem_tag{ "KKDeM" };
   // Create a vector of length 1, containing the given filename.
   vector<string> filenames(1, filename);
@@ -40,7 +43,6 @@ art_gallery_prototype_macro(std::string const& filename)
   int n_mom_bins = (max_mom - min_mom) / mom_bin_width;
   TH1D* h_RecoMom = new TH1D("h_RecoMom", "Reconstructed Momentum", n_mom_bins,min_mom,max_mom);
 
-  auto start_time = system_clock::now();
   // We'll record the time it takes to process each gallery::Event.
   vector<microseconds> times;
 
