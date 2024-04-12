@@ -1,14 +1,18 @@
 # Prototype using Gallery to read Art files
 
 ## What It Does
-There are two prototypes: a ROOT macro and a compiled program. They both make s simple histogram of the reconstructed momentum at the tracker entrance for downstream electron tracks
+There are two prototypes: a ROOT macro and a compiled program. They both take as arguments:
+ * a text file containing a list of files, and
+ * the number of files to run over
+
+and make a simple histogram of the reconstructed momentum at the tracker entrance for downstream electron tracks.
 
 ## How to Run
 
 ### The ROOT Macro
 ```
 source setup.sh
-root -l art_gallery_prototype_macro.C\(\"/path/to/art/file\"\)
+root -l 'art_gallery_prototype_macro.C("../filelists/mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art.list", n_files_to_read)'
 ```
 
 ### The Compiled Program
@@ -18,7 +22,7 @@ mkdir build/
 cd build/
 cmake ../
 make
-./art_gallery_prototype /path/to/art/file
+./art_gallery_prototype ../../filelists/mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art.list 2
 ```
 
 ## Pros and Cons
@@ -35,8 +39,9 @@ Andy's Cons:
 
 ## Next Steps
 * Make histograms with time cuts
-* Make it read multiple files?
 * Add a simple configuration interface?
+* For compiled program:
+  * make argument parsing safer
 
 ## Other notes
 

@@ -24,14 +24,26 @@ using namespace std;
 using namespace std::chrono;
 
 void
-art_gallery_prototype_macro(std::string const& filename)
+art_gallery_prototype_macro(std::string const& filelist, int const& n_files)
 {
 
   auto start_time = system_clock::now();
 
   InputTag dem_tag{ "KKDeM" };
-  // Create a vector of length 1, containing the given filename.
-  vector<string> filenames(1, filename);
+
+  vector<string> filenames;
+  filenames.reserve(n_files); // set to number of files (the number of files in the dataset)
+  std::ifstream input_filelist(filelist);
+  if (input_filelist.is_open()) {
+    std::string filename;
+    while(std::getline(input_filelist,filename)) {
+      filenames.emplace_back(filename);
+      if (filenames.size()>=n_files) {
+        break;
+      }
+    }
+    input_filelist.close();
+  }
 
   // Don't do the following in compiled C++. This code relies on the
   // interactive ROOT system to (implicitly) own the histograms we

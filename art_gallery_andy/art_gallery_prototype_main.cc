@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <numeric>
+#include <fstream>
 
 #include "canvas/Utilities/InputTag.h"
 #include "gallery/Event.h"
@@ -27,20 +28,31 @@ int main(int argc, char** argv) {
 
   auto start_time = system_clock::now();
 
-  if (argc == 1) {
-    std::cout << "Missing input file name" << std::endl;
+  if (argc != 3) {
+    std::cout << "Missing arguments. They should be filelist and number of files" << std::endl;
     return -1;
   }
 
-  std::string filename = *(argv+1);
+  std::string filelist = *(argv+1);
   InputTag dem_tag{ "KKDeM" };
-  // Create a vector of length 1, containing the given filename.
-  vector<string> filenames(1, filename);
 
-  // Don't do the following in compiled C++. This code relies on the
-  // interactive ROOT system to (implicitly) own the histograms we
-  // create on the heap. In a C++ program, this object would be leaked
-  // (the memory unrecoverable by the program).
+  int n_files = stoi(*(argv+2));
+  vector<string> filenames;
+  filenames.reserve(n_files); // set to number of files (the number of files in the dataset)
+  std::ifstream input_filelist(filelist);
+  if (input_filelist.is_open()) {
+    std::string filename;
+    while(std::getline(input_filelist,filename)) {
+      filenames.emplace_back(filename);
+      if (filenames.size()>=n_files) {
+        break;
+      }
+    }
+    input_filelist.close();
+  }
+
+
+  // Make histogram
   double min_mom = 95;
   double max_mom = 110;
   double mom_bin_width = 0.5;
