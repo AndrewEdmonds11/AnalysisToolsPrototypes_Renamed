@@ -30,7 +30,8 @@ Andy's Pros:
 Andy's Cons:
  * no access to SubRun- or Run-level data products
  * need to know details of full data products
- * no configuration interface to e.g. have user choose histogram limits etc.
+   * e.g. for compiled program, need to know location of the Mu2e header files
+ * will need to build our own configuration interface to e.g. have user choose histogram limits, cuts etc.
 
 ## Next Steps
 * Make histograms with time cuts
