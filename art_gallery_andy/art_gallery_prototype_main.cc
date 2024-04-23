@@ -36,6 +36,9 @@ public:
     else if (config["name"] == "time") {
       func = time;
     }
+    else if (config["name"] == "surfaceId") {
+      func = surfaceId;
+    }
     else if (config["name"] == "no_var") {
       func = noVar;
     }
@@ -48,6 +51,7 @@ private:
 
   static double momentum(const mu2e::KalIntersection& kinter) { return kinter.momentum3().R(); }
   static double time(const mu2e::KalIntersection& kinter) { return kinter.time(); }
+  static double surfaceId(const mu2e::KalIntersection& kinter) { return kinter.surfaceId().id(); }
   static double noVar(const mu2e::KalIntersection& kinter) { return 0; }
 };
 

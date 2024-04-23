@@ -459,6 +459,23 @@
         "comparator": "<",
         "value": 99.0
       }
+    },
+    {
+      "name": "hSurfaceId",
+      "title": "Surface ID",
+      "min_x": 0.0,
+      "max_x": 10.0,
+      "bin_width": 1.0,
+      "variable": {
+        "name": "surfaceId"
+      },
+      "cut": {
+        "variable": {
+          "name": "no_var"
+        },
+        "comparator": "noOp",
+        "value": 0.0
+      }
     }
   ]
 }

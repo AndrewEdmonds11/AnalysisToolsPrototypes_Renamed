@@ -11,6 +11,10 @@ class Time extends Variable {
       name = "time"
 }
 
+class SurfaceId extends Variable {
+      name = "surfaceId"
+}
+
 // Generic configurations for cuts
 open class Cut {
       variable : Variable
@@ -26,6 +30,12 @@ class MomCut extends Cut {
       variable : Momentum
 }
 
+//class EntranceCut extends Cut {
+//      variable : SurfaceId
+//      comparator : "=="
+//      value : 0
+//}
+
 // Generic configurations for hists
 open class Hist {
       name : String = "default_name"
@@ -34,6 +44,7 @@ open class Hist {
       max_x : Float(this>min_x) = 0.0
       bin_width : Float(this>0) = 0.0
       variable : Variable
+      cut : Cut
 }
 
 class MomHist extends Hist {
@@ -41,7 +52,6 @@ class MomHist extends Hist {
       max_x = 110.0
       bin_width = 0.5
       variable : Momentum
-      cut : Cut
 }
 
 class TimeHist extends Hist {
@@ -49,7 +59,13 @@ class TimeHist extends Hist {
       max_x = 1700.0
       bin_width = 10.0
       variable : Time
-      cut : Cut
+}
+
+class SurfaceIdHist extends Hist {
+      min_x = 0.0
+      max_x = 10.0
+      bin_width = 1.0
+      variable : SurfaceId
 }
 
 // Configure the histograms we want
@@ -94,5 +110,10 @@ hists {
         name = "hTime_lt"+cut.value.toInt().toString()+"MeV"
 	title = "Reco Mom (p " + cut.comparator + " "+cut.value.toInt().toString()+" MeV/c)"
       }
+  }
+
+  new SurfaceIdHist {
+      name = "hSurfaceId"
+      title = "Surface ID"
   }
 }
