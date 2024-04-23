@@ -1,0 +1,66 @@
+#include "Offline/fcl/minimalMessageService.fcl"
+
+BEGIN_PROLOG
+
+dropMCCommands : [
+  "drop mu2e::StepPointMCs_*_*_*",
+  "drop mu2e::SimParticlemv_*_*_*",
+  "drop mu2e::SimParticleart::Ptrmu2e::MCTrajectorystd::map_*_*_*",
+  "drop mu2e::KalSeedMCs_*_*_*",
+  "drop mu2e::StrawGasSteps_*_*_*",
+  "drop mu2e::StrawDigiMCs_*_*_*",
+  "drop mu2e::CaloHitMCs_*_*_*",
+  "drop *_g4run_*_*",
+  "drop mu2e::CaloClusterMCs_*_*_*",
+  "drop mu2e::KalSeedmu2e::KalSeedMCvoidart::Assns_*_*_*",
+  "drop mu2e::PrimaryParticle_*_*_*",
+  "drop mu2e::CrvCoincidenceClustermu2e::CrvCoincidenceClusterMCvoidart::Assns_*_*_*",
+  "drop mu2e::ProtonBunchTimeMC_*_*_*",
+  "drop mu2e::CrvCoincidenceClusterMCs_*_*_*",
+  "drop mu2e::CrvDigiMCs_*_*_*",
+  "drop mu2e::CrvSteps_*_*_*",
+  "drop mu2e::GenParticles_*_*_*"
+]
+
+dropLowLevelCommands : [
+  "drop mu2e::CaloDigis_*_*_*",
+  "drop mu2e::StrawDigiADCWaveforms_*_*_*",
+  "drop mu2e::StrawDigis_*_*_*",
+  "drop mu2e::CaloHits_*_*_*",
+  "drop mu2e::CrvRecoPulses_*_*_*",
+  "drop mu2e::CrvDigis_*_*_*",
+  "drop mu2e::HelixSeeds_*_*_*",
+  "drop mu2e::TimeClusters_*_*_*"
+]
+
+END_PROLOG
+
+process_name : SimpleSkims
+
+source : { module_type : RootInput }
+services: { message: @local::default_message }
+physics : {
+  outpath : [ DropMC, DropLowLevel ]
+  end_paths : [outpath]
+}
+
+outputs : {
+  DropMC : {
+    module_type : RootOutput
+    outputCommands : [
+      "keep *_*_*_*",
+      @sequence::dropMCCommands
+    ]
+    fileName : "mcs.no-mc.art"
+  }
+
+  DropLowLevel : {
+    module_type : RootOutput
+    outputCommands : [
+      "keep *_*_*_*",
+      @sequence::dropMCCommands,
+      @sequence::dropLowLevelCommands
+    ]
+    fileName : "mcs.no-mc-no-low-level.art"
+  }
+}
