@@ -15,6 +15,12 @@
 // Header file for the classes stored in the TTree if any.
 #include "Math/GenVector/Cartesian3D.h"
 #include "Offline/MCDataProducts/inc/MCRelationship.hh"
+#include "TrkAna/inc/TrkInfo.hh"
+#include "TrkAna/inc/TrkStrawHitInfo.hh"
+#include "TrkAna/inc/TrkStrawHitInfoMC.hh"
+#include "TrkAna/inc/TrkStrawMatInfo.hh"
+#include "TrkAna/inc/SimInfo.hh"
+#include "TrkAna/inc/MCStepInfo.hh"
 
 class trkana {
 public :
@@ -233,7 +239,7 @@ public :
    Float_t         deptch_edep[kMaxdeptch];   //[deptch_]
    Float_t         deptch_edeperr[kMaxdeptch];   //[deptch_]
  //mu2e::MVAResultInfo *deptrkqual;
-   Float_t         result;
+   //Float_t         result;
    Int_t           depmc_;
    Bool_t          depmc_valid[kMaxdepmc];   //[depmc_]
    Int_t           depmc_ndigi[kMaxdepmc];   //[depmc_]
@@ -329,7 +335,7 @@ public :
    Float_t         uemtch_edep[kMaxuemtch];   //[uemtch_]
    Float_t         uemtch_edeperr[kMaxuemtch];   //[uemtch_]
  //mu2e::MVAResultInfo *uemtrkqual;
-   Float_t         result;
+   //Float_t         result;
    Int_t           uep_;
    Int_t           uep_status[kMaxuep];   //[uep_]
    Int_t           uep_goodfit[kMaxuep];   //[uep_]
@@ -387,7 +393,7 @@ public :
    Float_t         ueptch_edep[kMaxueptch];   //[ueptch_]
    Float_t         ueptch_edeperr[kMaxueptch];   //[ueptch_]
  //mu2e::MVAResultInfo *ueptrkqual;
-   Float_t         result;
+  // Float_t         result;
    Int_t           dmm_;
    Int_t           dmm_status[kMaxdmm];   //[dmm_]
    Int_t           dmm_goodfit[kMaxdmm];   //[dmm_]
@@ -445,7 +451,7 @@ public :
    Float_t         dmmtch_edep[kMaxdmmtch];   //[dmmtch_]
    Float_t         dmmtch_edeperr[kMaxdmmtch];   //[dmmtch_]
  //mu2e::MVAResultInfo *dmmtrkqual;
-   Float_t         result;
+   //Float_t         result;
    Int_t           dmp_;
    Int_t           dmp_status[kMaxdmp];   //[dmp_]
    Int_t           dmp_goodfit[kMaxdmp];   //[dmp_]
@@ -503,7 +509,7 @@ public :
    Float_t         dmptch_edep[kMaxdmptch];   //[dmptch_]
    Float_t         dmptch_edeperr[kMaxdmptch];   //[dmptch_]
  //mu2e::MVAResultInfo *dmptrkqual;
-   Float_t         result;
+   //Float_t         result;
    Int_t           umm_;
    Int_t           umm_status[kMaxumm];   //[umm_]
    Int_t           umm_goodfit[kMaxumm];   //[umm_]
@@ -561,7 +567,7 @@ public :
    Float_t         ummtch_edep[kMaxummtch];   //[ummtch_]
    Float_t         ummtch_edeperr[kMaxummtch];   //[ummtch_]
  //mu2e::MVAResultInfo *ummtrkqual;
-   Float_t         result;
+   //Float_t         result;
    Int_t           ump_;
    Int_t           ump_status[kMaxump];   //[ump_]
    Int_t           ump_goodfit[kMaxump];   //[ump_]
@@ -619,7 +625,7 @@ public :
    Float_t         umptch_edep[kMaxumptch];   //[umptch_]
    Float_t         umptch_edeperr[kMaxumptch];   //[umptch_]
  //mu2e::MVAResultInfo *umptrkqual;
-   Float_t         result;
+  // Float_t         result;
  //mu2e::CrvSummaryReco *crvsummary_;
    Int_t           crvsummary_totalPEs;
    Int_t           crvsummary_nHitCounters;
