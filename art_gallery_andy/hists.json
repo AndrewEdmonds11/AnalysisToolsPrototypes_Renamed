@@ -2,49 +2,134 @@
   "n_hists": 5,
   "hists": [
     {
-      "name": "hRecoMom_500ns",
+      "name": "hRecoMom_gt500ns",
       "title": "Reco Mom (t > 500 ns)",
       "min_x": 90.0,
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "time_cut": 500.0
+      "time_cut": {
+        "variable": "time",
+        "comparator": ">",
+        "value": 500.0
+      }
     },
     {
-      "name": "hRecoMom_600ns",
+      "name": "hRecoMom_lt500ns",
+      "title": "Reco Mom (t < 500 ns)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": {
+        "variable": "time",
+        "comparator": "<",
+        "value": 500.0
+      }
+    },
+    {
+      "name": "hRecoMom_gt600ns",
       "title": "Reco Mom (t > 600 ns)",
       "min_x": 90.0,
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "time_cut": 600.0
+      "time_cut": {
+        "variable": "time",
+        "comparator": ">",
+        "value": 600.0
+      }
     },
     {
-      "name": "hRecoMom_700ns",
+      "name": "hRecoMom_lt600ns",
+      "title": "Reco Mom (t < 600 ns)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": {
+        "variable": "time",
+        "comparator": "<",
+        "value": 600.0
+      }
+    },
+    {
+      "name": "hRecoMom_gt700ns",
       "title": "Reco Mom (t > 700 ns)",
       "min_x": 90.0,
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "time_cut": 700.0
+      "time_cut": {
+        "variable": "time",
+        "comparator": ">",
+        "value": 700.0
+      }
     },
     {
-      "name": "hRecoMom_800ns",
+      "name": "hRecoMom_lt700ns",
+      "title": "Reco Mom (t < 700 ns)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": {
+        "variable": "time",
+        "comparator": "<",
+        "value": 700.0
+      }
+    },
+    {
+      "name": "hRecoMom_gt800ns",
       "title": "Reco Mom (t > 800 ns)",
       "min_x": 90.0,
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "time_cut": 800.0
+      "time_cut": {
+        "variable": "time",
+        "comparator": ">",
+        "value": 800.0
+      }
     },
     {
-      "name": "hRecoMom_900ns",
+      "name": "hRecoMom_lt800ns",
+      "title": "Reco Mom (t < 800 ns)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": {
+        "variable": "time",
+        "comparator": "<",
+        "value": 800.0
+      }
+    },
+    {
+      "name": "hRecoMom_gt900ns",
       "title": "Reco Mom (t > 900 ns)",
       "min_x": 90.0,
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "time_cut": 900.0
+      "time_cut": {
+        "variable": "time",
+        "comparator": ">",
+        "value": 900.0
+      }
+    },
+    {
+      "name": "hRecoMom_lt900ns",
+      "title": "Reco Mom (t < 900 ns)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": {
+        "variable": "time",
+        "comparator": "<",
+        "value": 900.0
+      }
     },
     {
       "name": "hTime",

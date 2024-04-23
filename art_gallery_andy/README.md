@@ -24,7 +24,7 @@ The compiled program takes three arguments:
 
 The program reads the configuration file to make multiple histograms. Currently supported histograms:
 
- * momentum at tracker entrance with time cuts
+ * momentum at tracker entrance with time cuts (any of >, >=, <, <=, ==, !=)
  * time at tracker entrance (no cuts)
 
 ### How to Run

@@ -27,6 +27,55 @@ using namespace std;
 using namespace std::chrono;
 using json = nlohmann::json;
 
+class Cut {
+public:
+  Cut(const json& config) {
+    if (config["comparator"] == ">") {
+      func = this->greaterThan;
+    }
+    else if (config["comparator"] == ">=") {
+      func = this->greaterThanEqualTo;
+    }
+    else if (config["comparator"] == "<") {
+      func = this->lessThan;
+    }
+    else if (config["comparator"] == "<=") {
+      func = this->lessThanEqualTo;
+    }
+    else if (config["comparator"] == "==") {
+      func = this->equalTo;
+    }
+    else if (config["comparator"] == "!=") {
+      func = this->notEqualTo;
+    }
+  }
+
+  bool evaluate(double input, double check) { return func(input, check); }
+
+private:
+
+  bool (*func)(double, double);
+
+  static bool greaterThan(double input, double check) {
+    return input > check;
+  }
+  static bool greaterThanEqualTo(double input, double check) {
+    return input >= check;
+  }
+  static bool lessThan(double input, double check) {
+    return input < check;
+  }
+  static bool lessThanEqualTo(double input, double check) {
+    return input <= check;
+  }
+  static bool equalTo(double input, double check) {
+    return input == check;
+  }
+  static bool notEqualTo(double input, double check) {
+    return input != check;
+  }
+};
+
 int main(int argc, char** argv) {
 
   auto start_time = system_clock::now();
@@ -91,7 +140,9 @@ int main(int argc, char** argv) {
               const auto& hist_cfg = allHistsCfg.at(i_hist);
 
               if (hist_cfg["variable"] == "momentum") { // FIXME: a better way here?
-                if (kinter.time() > hist_cfg["time_cut"]) {
+                const auto& time_cut_cfg = hist_cfg["time_cut"];
+                Cut time_cut(time_cut_cfg);
+                if (time_cut.evaluate(kinter.time(), time_cut_cfg["value"])) {
                   hist.Fill(kinter.momentum3().R());
                 }
               }

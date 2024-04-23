@@ -1,3 +1,13 @@
+open class Cut {
+      variable : String = "cut_variable"
+      comparator : String = ">"
+      value : Float = 0.0
+}
+
+class TimeCut extends Cut {
+      variable : String = "time"
+}
+
 open class Hist {
       name : String = "default_name"
       title : String = "default_title"
@@ -12,7 +22,7 @@ class MomHist extends Hist {
       max_x = 110.0
       bin_width = 0.5
       variable = "momentum"
-      time_cut : Float = 0.0
+      time_cut : TimeCut 
 }
 
 class TimeHist extends Hist {
@@ -28,9 +38,15 @@ hidden i_hists = IntSeq(0, n_hists-1) // "hidden" because IntSeq cannot be inter
 hists {
   for (i_hist in i_hists) {
       new MomHist {
-      	time_cut = 500.0 + i_hist*100.0
-        name = "hRecoMom_"+time_cut.toInt().toString()+"ns"
-	title = "Reco Mom (t > "+time_cut.toInt().toString()+" ns)"
+      	time_cut { value = 500.0 + i_hist*100.0 }
+        name = "hRecoMom_gt"+time_cut.value.toInt().toString()+"ns"
+	title = "Reco Mom (t " + time_cut.comparator + " "+time_cut.value.toInt().toString()+" ns)"
+      }
+      new MomHist {
+      	time_cut { comparator = "<"
+		 value = 500.0 + i_hist*100.0 }
+        name = "hRecoMom_lt"+time_cut.value.toInt().toString()+"ns"
+	title = "Reco Mom (t " + time_cut.comparator + " "+time_cut.value.toInt().toString()+" ns)"
       }
   }
   new TimeHist {
