@@ -60,3 +60,20 @@ Andy's Cons:
 |   | art_gallery_prototype_macro.C | 2 files | 0.370 | 11527 | |
 |   | art_gallery_prototype_macro.C | 10 files | 1.332 |191143  | macro also sees an increase in the time per event... |
 
+### Time per event vs N Files
+Commit hash: fa19843
+Script: art_gallery_prototype_macro.C
+Dataset: mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art
+
+| N Files |  Time per event (1st attempt) [ms] | Time per event (2nd attempt) [ms] | Time per event (3rd attempt) [ms] | Time per event (4th attempt) [ms] |   Time per event (5th attempt) [ms] |
+|----|----|----|----|----|----|
+| 1 | 1.928 | 0.359 | not done | not done | not done |
+| 2 | 0.536 | 0.360 | not done | not done | not done |
+| 3 | 0.494 | 0.378 | not done | not done | not done |
+| 4 | 0.749 | 0.367 | not done | not done | not done |
+| 5 | 0.797 | 0.376 | not done | not done | not done |
+| 6 | 0.421 | 0.463 | not done | not done | not done |
+| 7 | 1.180 | 0.891 | 0.573 | 0.729 | 0.873 |
+| 8 | 1.016 | 0.816 | 0.738 | 0.844 | 1.677 |
+| 9 | 1.552 | 1.966 | 1.627 | 1.281 | 1.107 |
+| 10 | 1.247 | 0.999 | 0.879 | 0.824 | 0.818 |
