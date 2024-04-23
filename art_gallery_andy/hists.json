@@ -1,0 +1,40 @@
+{
+  "n_hists": 5,
+  "hists": [
+    {
+      "name": "hRecoMom0",
+      "title": "Histogram 0",
+      "min_x": 50,
+      "max_x": 110.0,
+      "n_x_bins": 60
+    },
+    {
+      "name": "hRecoMom1",
+      "title": "Histogram 1",
+      "min_x": 60,
+      "max_x": 110.0,
+      "n_x_bins": 50
+    },
+    {
+      "name": "hRecoMom2",
+      "title": "Histogram 2",
+      "min_x": 70,
+      "max_x": 110.0,
+      "n_x_bins": 40
+    },
+    {
+      "name": "hRecoMom3",
+      "title": "Histogram 3",
+      "min_x": 80,
+      "max_x": 110.0,
+      "n_x_bins": 30
+    },
+    {
+      "name": "hRecoMom4",
+      "title": "Histogram 4",
+      "min_x": 90,
+      "max_x": 110.0,
+      "n_x_bins": 20
+    }
+  ]
+}

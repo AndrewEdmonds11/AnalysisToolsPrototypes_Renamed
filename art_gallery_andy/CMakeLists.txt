@@ -14,7 +14,8 @@ include_directories($ENV{BTRK_DIR}/include)
 include_directories($ENV{CLHEP_INCLUDE_DIR})
 include_directories($ENV{ART_INC})
 include_directories($ENV{KINKAL_INC})
-link_directories($ENV{ROOTSYS}/lib $ENV{CANVAS_LIB} $ENV{CETLIB_EXCEPT_LIB} $ENV{CETLIB_LIB} $ENV{GALLERY_LIB} $ENV{CANVAS_ROOT_IO_LIB} $ENV{BTRK_LIB} $ENV{CLHEP_LIB_DIR} $ENV{ART_LIB} $ENV{KINKAL_LIB})
+include_directories($ENV{NLOHMANN_JSON_INC})
+link_directories($ENV{ROOTSYS}/lib $ENV{CANVAS_LIB} $ENV{CETLIB_EXCEPT_LIB} $ENV{CETLIB_LIB} $ENV{GALLERY_LIB} $ENV{CANVAS_ROOT_IO_LIB} $ENV{BTRK_LIB} $ENV{CLHEP_LIB_DIR} $ENV{ART_LIB} $ENV{KINKAL_LIB} $ENV{NLOHMANN_JSON_INC})
 
 add_executable(art_gallery_prototype art_gallery_prototype_main.cc)
 

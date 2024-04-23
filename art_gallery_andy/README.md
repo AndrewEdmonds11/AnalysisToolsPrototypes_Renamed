@@ -1,21 +1,31 @@
-# Prototype using Gallery to read Art files
+# Prototypes using Gallery to read Art files
 
-## What It Does
-There are two prototypes: a ROOT macro and a compiled program. They both take as arguments:
+## ROOT Macro
+### What It Does
+The ROOT macros takes two arguments:
  * a text file containing a list of files, and
  * the number of files to run over
 
-and make a simple histogram of the reconstructed momentum at the tracker entrance for downstream electron tracks.
+and makes a simple histogram of the reconstructed momentum at the tracker entrance for downstream electron tracks.
 
-## How to Run
+### How to Run
 
-### The ROOT Macro
 ```
 source setup.sh
 root -l 'art_gallery_prototype_macro.C("../filelists/mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art.list", n_files_to_read)'
 ```
 
-### The Compiled Program
+## Compiled Program
+### What It Does
+The compiled program takes two arguments:
+ * a text file containing a list of files, and
+ * the number of files to run over
+
+and reads in a JSON configuration file to make N histograms of the reconstructed momentum at the tracker entrance for downstream electron tracks.
+
+At the moment, the location of the configuration file is hard-coded, and the code only uses it to make histograms with different axis ranges.
+
+### How to Run
 ```
 source setup.sh
 mkdir build/
@@ -24,6 +34,15 @@ cmake ../
 make
 ./art_gallery_prototype ../../filelists/mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art.list 2
 ```
+
+### How to Generate JSON File
+On my local machine, I'm using Apple's Pkl configuration language (https://pkl-lang.org/index.html) to create the JSON file. I write the ```hists.pkl``` file and generate the ```hists.json``` like so:
+
+```
+./pkl eval -f json hists.pkl > hists.json
+```
+
+Pkl does a bunch of validation checking
 
 ## Pros and Cons
 

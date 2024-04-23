@@ -1,0 +1,22 @@
+class Hist {
+      name : String = "default_name"
+      title : String = "default_title"
+      min_x : Float = 0.0
+      max_x : Float = 0.0
+      n_x_bins : Int = 0 
+}
+
+n_hists = 5
+hidden i_hists = IntSeq(0, n_hists-1) // "hidden" because IntSeq cannot be interpreted by JSON
+
+hists {
+  for (i_hist in i_hists) {
+      new {
+        name = "hRecoMom"+i_hist.toString()
+	title = "Histogram "+i_hist.toString()
+        min_x = 50 + i_hist*10
+	max_x = 110.0
+     	n_x_bins = (max_x - min_x) ~/ 1 // ~/ means integer division
+       }
+  }
+}

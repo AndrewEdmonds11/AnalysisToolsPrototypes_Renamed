@@ -10,6 +10,8 @@
 #include <numeric>
 #include <fstream>
 
+#include "nlohmann/json.hpp"
+
 #include "canvas/Utilities/InputTag.h"
 #include "gallery/Event.h"
 
@@ -23,6 +25,7 @@
 using namespace art;
 using namespace std;
 using namespace std::chrono;
+using json = nlohmann::json;
 
 int main(int argc, char** argv) {
 
@@ -32,6 +35,10 @@ int main(int argc, char** argv) {
     std::cout << "Missing arguments. They should be filelist and number of files" << std::endl;
     return -1;
   }
+
+  std::ifstream json_file("../hists.json");
+  json config = json::parse(json_file);
+  std::cout << config["hists"] << std::endl;
 
   std::string filelist = *(argv+1);
   InputTag dem_tag{ "KKDeM" };
@@ -53,11 +60,15 @@ int main(int argc, char** argv) {
 
 
   // Make histogram
-  double min_mom = 95;
-  double max_mom = 110;
-  double mom_bin_width = 0.5;
-  int n_mom_bins = (max_mom - min_mom) / mom_bin_width;
-  TH1D h_RecoMom("h_RecoMom", "Reconstructed Momentum", n_mom_bins,min_mom,max_mom);
+  std::vector<TH1D> allHists;
+  for (const auto& hist_cfg : config["hists"]) {
+    double min_mom = hist_cfg["min_x"];
+    double max_mom = hist_cfg["max_x"];
+    int n_mom_bins = hist_cfg["n_x_bins"];
+    std::string histname = hist_cfg["name"];
+    std::string histtitle = hist_cfg["title"];
+    allHists.emplace_back(TH1D(histname.c_str(), histtitle.c_str(), n_mom_bins,min_mom,max_mom));
+  }
 
   // We'll record the time it takes to process each gallery::Event.
   vector<microseconds> times;
@@ -72,7 +83,9 @@ int main(int argc, char** argv) {
         for(size_t ikinter = 0; ikinter < dem.intersections().size(); ++ikinter){
           auto const& kinter = dem.intersections()[ikinter];
           if (kinter.surfaceId() == mu2e::SurfaceIdDetail::TT_Front) {
-            h_RecoMom.Fill(kinter.momentum3().R());
+            for (auto& hist : allHists) {
+              hist.Fill(kinter.momentum3().R());
+            }
           }
         }
       }
@@ -82,7 +95,9 @@ int main(int argc, char** argv) {
   }
 
   TFile outfile("main_output.root", "RECREATE");
-  h_RecoMom.Write();
+  for (auto& hist : allHists) {
+    hist.Write();
+  }
   outfile.Close();
 
 
