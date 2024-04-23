@@ -48,9 +48,11 @@ Pkl does a bunch of validation checking and looks like it could be of general us
 
 ### Classes
 
+* ```Variable```: contains a pointer to a function that will return the requested variable
+   * only ```KalIntersection``` momentum and time variables are supported at the moment
 * ```Cut```: contains a "comparator" and "cut value"
-   * "comparator" can be "noOp" which always returns true
-* ```Hist```: contains a ```TH1F``` and a ```Cut```
+   * "comparator" can be ```<, <=, >, >=, ==, !=, noOp``` where "noOp" always returns true
+* ```Hist```: contains a ```TH1F```, a ```Variable``` and a ```Cut```
    * the ```Cut``` can be a "noOp" if no cut is wanted
 
 ## Pros and Cons

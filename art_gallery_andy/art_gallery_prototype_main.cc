@@ -27,6 +27,27 @@ using namespace std;
 using namespace std::chrono;
 using json = nlohmann::json;
 
+class Variable {
+public:
+  Variable(const json& config) {
+    if (config["name"] == "momentum") {
+      func = momentum;
+    }
+    else if (config["name"] == "time") {
+      func = time;
+    }
+  }
+
+  double getValue(const mu2e::KalIntersection& kinter) { return func(kinter); }
+
+private:
+  double (*func)(const mu2e::KalIntersection& kinter);
+
+  static double momentum(const mu2e::KalIntersection& kinter) { return kinter.momentum3().R(); }
+  static double time(const mu2e::KalIntersection& kinter) { return kinter.time(); }
+};
+
+
 class Cut {
 public:
   Cut(const json& config) {
@@ -88,10 +109,14 @@ private:
 
 class Hist {
 public:
-  Hist(TH1D hist, Cut cut) : hist(hist), cut(cut) { }
+  Hist(TH1D roothist, Variable var, Cut cut) : roothist(roothist), var(var), cut(cut) { }
 
-  TH1D hist;
+  TH1D roothist;
+  Variable var;
   Cut cut;
+
+  void Fill(const mu2e::KalIntersection& kinter) { roothist.Fill(var.getValue(kinter)); }
+  void Write() { roothist.Write(); }
 };
 
 int main(int argc, char** argv) {
@@ -138,9 +163,11 @@ int main(int argc, char** argv) {
     std::string histname = hist_cfg["name"];
     std::string histtitle = hist_cfg["title"];
 
+    const auto& variable_cfg = hist_cfg["variable"];
     const auto& time_cut_cfg = hist_cfg["time_cut"];
-    std::cout << time_cut_cfg << std::endl;
+
     allHists.emplace_back(Hist(TH1D(histname.c_str(), histtitle.c_str(), n_mom_bins,min_mom,max_mom),
+                               Variable(variable_cfg),
                                Cut(time_cut_cfg)
                                ));
   }
@@ -159,18 +186,10 @@ int main(int argc, char** argv) {
           auto const& kinter = dem.intersections()[ikinter];
           if (kinter.surfaceId() == mu2e::SurfaceIdDetail::TT_Front) {
             for (size_t i_hist = 0; i_hist < allHists.size(); ++i_hist) {
-              auto& hist = allHists.at(i_hist).hist;
-              auto& cut = allHists.at(i_hist).cut;
+              auto& hist = allHists.at(i_hist);
 
-              const auto& hist_cfg = allHistsCfg.at(i_hist);
-
-              if (hist_cfg["variable"] == "momentum") { // FIXME: a better way here?
-                if (cut.evaluate(kinter.time())) {
-                  hist.Fill(kinter.momentum3().R());
-                }
-              }
-              else if (hist_cfg["variable"] == "time") { // FIXME: a better way here?
-                hist.Fill(kinter.time());
+              if (hist.cut.evaluate(kinter.time())) {
+                hist.Fill(kinter);
               }
             }
           }
@@ -183,7 +202,7 @@ int main(int argc, char** argv) {
 
   TFile outfile("main_output.root", "RECREATE");
   for (auto& hist : allHists) {
-    hist.hist.Write();
+    hist.Write();
   }
   outfile.Close();
 

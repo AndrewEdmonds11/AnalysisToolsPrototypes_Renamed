@@ -1,3 +1,15 @@
+open class Variable {
+      name : String = "no_var"
+}
+
+class Momentum extends Variable {
+      name = "momentum"
+}
+
+class Time extends Variable {
+      name = "time"
+}
+
 open class Cut {
       variable : String = "cut_variable"
       comparator : String = "noOp"
@@ -14,14 +26,14 @@ open class Hist {
       min_x : Float = 0.0
       max_x : Float(this>min_x) = 0.0
       bin_width : Float(this>0) = 0.0
-      variable : String = "default_variable"
+      variable : Variable
 }
 
 class MomHist extends Hist {
       min_x = 90.0
       max_x = 110.0
       bin_width = 0.5
-      variable = "momentum"
+      variable : Momentum
       time_cut : TimeCut 
 }
 
@@ -29,7 +41,7 @@ class TimeHist extends Hist {
       min_x = 0.0
       max_x = 1700.0
       bin_width = 10.0
-      variable = "time"
+      variable : Time
       time_cut : TimeCut
 }
 
