@@ -31,19 +31,20 @@ int main(int argc, char** argv) {
 
   auto start_time = system_clock::now();
 
-  if (argc != 3) {
-    std::cout << "Missing arguments. They should be filelist and number of files" << std::endl;
+  if (argc != 4) {
+    std::cout << "Missing arguments. They should be JSON configuration file, filelist and number of files" << std::endl;
     return -1;
   }
 
-  std::ifstream json_file("../hists.json");
+  std::string json_filename = *(argv+1);
+  std::ifstream json_file(json_filename.c_str());
   json config = json::parse(json_file);
   std::cout << config["hists"] << std::endl;
 
-  std::string filelist = *(argv+1);
+  std::string filelist = *(argv+2);
   InputTag dem_tag{ "KKDeM" };
 
-  int n_files = stoi(*(argv+2));
+  int n_files = stoi(*(argv+3));
   vector<string> filenames;
   filenames.reserve(n_files); // set to number of files (the number of files in the dataset)
   std::ifstream input_filelist(filelist);

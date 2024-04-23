@@ -17,13 +17,12 @@ root -l 'art_gallery_prototype_macro.C("../filelists/mcs.mu2e.CeEndpointMix1BBSi
 
 ## Compiled Program
 ### What It Does
-The compiled program takes two arguments:
+The compiled program takes three arguments:
+ * a JSON configuration file,
  * a text file containing a list of files, and
  * the number of files to run over
 
-and reads in a JSON configuration file to make N histograms of the reconstructed momentum at the tracker entrance for downstream electron tracks.
-
-At the moment, the location of the configuration file is hard-coded. The code also only produces momentum histograms with time cuts (all defined in the configuration file)
+and reads in a JSON configuration file to make N histograms of the reconstructed momentum at the tracker entrance for downstream electron tracks. The N histograms can have different time cuts.
 
 ### How to Run
 ```
@@ -32,7 +31,7 @@ mkdir build/
 cd build/
 cmake ../
 make
-./art_gallery_prototype ../../filelists/mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art.list 2
+./art_gallery_prototype ../hists.json ../../filelists/mcs.mu2e.CeEndpointMix1BBSignal.Tutorial_2024_03.art.list 2
 ```
 
 ### How to Generate JSON File
@@ -55,6 +54,7 @@ Andy's Cons:
  * need to know details of full data products
    * e.g. for compiled program, need to know location of the Mu2e header files
  * will need to build our own configuration interface to e.g. have user choose histogram limits, cuts etc.
+   * with the compiled program's JSON configuration, I feel like I'm reinventing the wheel
 
 ## Next Steps
 * For ROOT macro
@@ -62,7 +62,6 @@ Andy's Cons:
   * Add a simple configuration interface?
 * For compiled program:
   * make argument parsing safer
-  * make configuration file an input argument
 
 ## Other notes
 
