@@ -30,7 +30,9 @@ muse setup
 
 To generate the output files
 
+```
 mu2e -c simple-skims.fcl -S ../filelists/mcs.mu2e.ensemble-CE-DIO-1month-OnSpillTriggered.MDC2020ad_perfect_v1_2.art.list
+```
 
 ## Notes
 
