@@ -1,33 +1,16 @@
-// Generic configurations for variables
-open class Variable {
-      name : String = "no_var"
-}
-
-class Momentum extends Variable {
-      name = "momentum"
-}
-
-class Time extends Variable {
-      name = "time"
-}
-
-class SurfaceId extends Variable {
-      name = "surfaceId"
-}
-
 // Generic configurations for cuts
 open class Cut {
-      variable : Variable
+      variable : ""
       comparator : String = "noOp"
       value : Float = 0.0
 }
 
 class TimeCut extends Cut {
-      variable : Time
+      variable : "time"
 }
 
 class MomCut extends Cut {
-      variable : Momentum
+      variable : "time"
 }
 
 //class EntranceCut extends Cut {
@@ -43,7 +26,7 @@ open class Hist {
       min_x : Float = 0.0
       max_x : Float(this>min_x) = 0.0
       bin_width : Float(this>0) = 0.0
-      variable : Variable
+      variable : ""
       cut : Cut
 }
 
@@ -51,46 +34,44 @@ class MomHist extends Hist {
       min_x = 90.0
       max_x = 110.0
       bin_width = 0.5
-      variable : Momentum
+      variable : "momentum"
 }
 
 class TimeHist extends Hist {
       min_x = 0.0
       max_x = 1700.0
       bin_width = 10.0
-      variable : Time
+      variable : "time"
 }
 
 class SurfaceIdHist extends Hist {
       min_x = 0.0
       max_x = 10.0
       bin_width = 1.0
-      variable : SurfaceId
+      variable : "surfaceId"
 }
 
 // Configure the histograms we want
-n_hists = 5
+hidden n_hists = 5
 hidden i_hists = IntSeq(0, n_hists-1) // "hidden" because IntSeq cannot be interpreted by JSON
+hidden time_cut_values { for (i_hist in i_hists) { 500.0+i_hist*100.0 } }
+hidden mom_cut_values { for (i_hist in i_hists) { 95.0+i_hist } }
+
 hists {
   new MomHist {
       name = "hRecoMom"
       title = "Reco Mom (no cuts)"
   }
-  for (i_hist in i_hists) {
+  for (time_cut_val in time_cut_values) {
       new MomHist {
-      	cut  = new TimeCut { comparator = ">" value = 500.0 + i_hist*100.0 }
-        name = "hRecoMom_gt"+cut.value.toInt().toString()+"ns"
-	title = "Reco Mom (t " + cut.comparator + " "+cut.value.toInt().toString()+" ns)"
+      	cut  = new TimeCut { comparator = ">" value = time_cut_val }
+        name = "hRecoMom_gt"+time_cut_val.toInt().toString()+"ns"
+	title = "Reco Mom (t " + cut.comparator + " "+time_cut_val.toInt().toString()+" ns)"
       }
       new MomHist {
-      	cut = new TimeCut { comparator = "<" value = 500.0 + i_hist*100.0 }
-        name = "hRecoMom_lt"+cut.value.toInt().toString()+"ns"
-	title = "Reco Mom (t " + cut.comparator + " "+cut.value.toInt().toString()+" ns)"
-      }
-      new MomHist {
-      	cut  = new MomCut { comparator = ">" value = 98.0 + i_hist }
-        name = "hRecoMom_gt"+cut.value.toInt().toString()+"MeV"
-	title = "Reco Mom (p " + cut.comparator + " "+cut.value.toInt().toString()+" MeV)"
+      	cut = new TimeCut { comparator = "<" value = time_cut_val }
+        name = "hRecoMom_lt"+time_cut_val.toInt().toString()+"ns"
+	title = "Reco Mom (t " + cut.comparator + " "+time_cut_val.toInt().toString()+" ns)"
       }
   }
 
@@ -99,16 +80,16 @@ hists {
       title = "Time (no cuts)"
   }
 
-  for (i_hist in i_hists) {
+  for (mom_cut_val in mom_cut_values) {
       new TimeHist {
-      	cut = new MomCut { comparator = ">" value = 95.0 + i_hist }
-        name = "hTime_gt"+cut.value.toInt().toString()+"MeV"
-	title = "Reco Mom (p " + cut.comparator + " "+cut.value.toInt().toString()+" MeV/c)"
+      	cut = new MomCut { comparator = ">" value = mom_cut_val }
+        name = "hTime_gt"+mom_cut_val.toInt().toString()+"MeV"
+	title = "Reco Mom (p " + cut.comparator + " "+mom_cut_val.toInt().toString()+" MeV/c)"
       }
       new TimeHist {
-      	cut = new MomCut { comparator = "<" value = 95.0 + i_hist }
-        name = "hTime_lt"+cut.value.toInt().toString()+"MeV"
-	title = "Reco Mom (p " + cut.comparator + " "+cut.value.toInt().toString()+" MeV/c)"
+      	cut = new MomCut { comparator = "<" value = mom_cut_val }
+        name = "hTime_lt"+mom_cut_val.toInt().toString()+"MeV"
+	title = "Reco Mom (p " + cut.comparator + " "+mom_cut_val.toInt().toString()+" MeV/c)"
       }
   }
 

@@ -49,9 +49,13 @@ Pkl does a bunch of validation checking and looks like it could be of general us
 
 ### Classes
 
-* ```Variable```: contains a pointer to a function that will return the requested variable. Supported variables:
-   * ```KalIntersection```: momentum, time, surface ID
-   * a ```no_var``` will always return 0
+* ```Variable```: contains a pointer to a function that will return the requested variable.
+   * Supported variables:
+   * from ```KalIntersection```:
+       * ```"momentum"``` is track momentum
+       * ```"time"``` is track time
+       * ```"surfaceId"``` is the track surface ID
+   * default: ```""``` will always return 0
 * ```Cut```: contains a "comparator" and "cut value"
    * "comparator" can be ```<, <=, >, >=, ==, !=, noOp``` where "noOp" always returns true
 * ```Hist```: contains a ```TH1F```, a ```Variable``` and a ```Cut```

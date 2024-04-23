@@ -29,17 +29,17 @@ using json = nlohmann::json;
 
 class Variable {
 public:
-  Variable(const json& config) {
-    if (config["name"] == "momentum") {
+  Variable(const std::string& name) {
+    if (name == "momentum") {
       func = momentum;
     }
-    else if (config["name"] == "time") {
+    else if (name == "time") {
       func = time;
     }
-    else if (config["name"] == "surfaceId") {
+    else if (name == "surfaceId") {
       func = surfaceId;
     }
-    else if (config["name"] == "no_var") {
+    else if (name == "") {
       func = noVar;
     }
   }
