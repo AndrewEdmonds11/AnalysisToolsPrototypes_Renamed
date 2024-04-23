@@ -56,10 +56,10 @@ Pkl does a bunch of validation checking and looks like it could be of general us
        * ```"time"``` is track time
        * ```"surfaceId"``` is the track surface ID
    * default: ```""``` will always return 0
-* ```Cut```: contains a "comparator" and "cut value"
-   * "comparator" can be ```<, <=, >, >=, ==, !=, noOp``` where "noOp" always returns true
+* ```Cut```: from a given cut string, it determines the function to use and value to compare against
+   * defined in configuration as a simple string like ```"variable>number"```
+   * multiple cuts are not currently supported
 * ```Hist```: contains a ```TH1F```, a ```Variable``` and a ```Cut```
-   * the ```Cut``` can be a "noOp" if no cut is wanted
 
 ## Pros and Cons
 

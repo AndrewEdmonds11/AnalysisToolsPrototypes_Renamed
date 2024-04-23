@@ -7,11 +7,7 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "",
-        "comparator": "noOp",
-        "value": 0.0
-      }
+      "cut": ""
     },
     {
       "name": "hRecoMom_gt500ns",
@@ -20,11 +16,7 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 500.0
-      }
+      "cut": "time>500.0"
     },
     {
       "name": "hRecoMom_lt500ns",
@@ -33,11 +25,16 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 500.0
-      }
+      "cut": "time<500.0"
+    },
+    {
+      "name": "hTime_gt500ns",
+      "title": "Time (t > 500 ns)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": "time",
+      "cut": "time>500.0"
     },
     {
       "name": "hRecoMom_gt600ns",
@@ -46,11 +43,7 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 600.0
-      }
+      "cut": "time>600.0"
     },
     {
       "name": "hRecoMom_lt600ns",
@@ -59,11 +52,16 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 600.0
-      }
+      "cut": "time<600.0"
+    },
+    {
+      "name": "hTime_gt600ns",
+      "title": "Time (t > 600 ns)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": "time",
+      "cut": "time>600.0"
     },
     {
       "name": "hRecoMom_gt700ns",
@@ -72,11 +70,7 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 700.0
-      }
+      "cut": "time>700.0"
     },
     {
       "name": "hRecoMom_lt700ns",
@@ -85,11 +79,16 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 700.0
-      }
+      "cut": "time<700.0"
+    },
+    {
+      "name": "hTime_gt700ns",
+      "title": "Time (t > 700 ns)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": "time",
+      "cut": "time>700.0"
     },
     {
       "name": "hRecoMom_gt800ns",
@@ -98,11 +97,7 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 800.0
-      }
+      "cut": "time>800.0"
     },
     {
       "name": "hRecoMom_lt800ns",
@@ -111,11 +106,16 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 800.0
-      }
+      "cut": "time<800.0"
+    },
+    {
+      "name": "hTime_gt800ns",
+      "title": "Time (t > 800 ns)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": "time",
+      "cut": "time>800.0"
     },
     {
       "name": "hRecoMom_gt900ns",
@@ -124,11 +124,7 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 900.0
-      }
+      "cut": "time>900.0"
     },
     {
       "name": "hRecoMom_lt900ns",
@@ -137,11 +133,16 @@
       "max_x": 110.0,
       "bin_width": 0.5,
       "variable": "momentum",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 900.0
-      }
+      "cut": "time<900.0"
+    },
+    {
+      "name": "hTime_gt900ns",
+      "title": "Time (t > 900 ns)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": "time",
+      "cut": "time>900.0"
     },
     {
       "name": "hTime",
@@ -150,11 +151,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "",
-        "comparator": "noOp",
-        "value": 0.0
-      }
+      "cut": ""
     },
     {
       "name": "hTime_gt95MeV",
@@ -163,11 +160,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 95.0
-      }
+      "cut": "momentum>95.0"
     },
     {
       "name": "hTime_lt95MeV",
@@ -176,11 +169,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 95.0
-      }
+      "cut": "momentum<95.0"
     },
     {
       "name": "hTime_gt96MeV",
@@ -189,11 +178,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 96.0
-      }
+      "cut": "momentum>96.0"
     },
     {
       "name": "hTime_lt96MeV",
@@ -202,11 +187,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 96.0
-      }
+      "cut": "momentum<96.0"
     },
     {
       "name": "hTime_gt97MeV",
@@ -215,11 +196,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 97.0
-      }
+      "cut": "momentum>97.0"
     },
     {
       "name": "hTime_lt97MeV",
@@ -228,11 +205,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 97.0
-      }
+      "cut": "momentum<97.0"
     },
     {
       "name": "hTime_gt98MeV",
@@ -241,11 +214,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 98.0
-      }
+      "cut": "momentum>98.0"
     },
     {
       "name": "hTime_lt98MeV",
@@ -254,11 +223,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 98.0
-      }
+      "cut": "momentum<98.0"
     },
     {
       "name": "hTime_gt99MeV",
@@ -267,11 +232,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": ">",
-        "value": 99.0
-      }
+      "cut": "momentum>99.0"
     },
     {
       "name": "hTime_lt99MeV",
@@ -280,11 +241,7 @@
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": "time",
-      "cut": {
-        "variable": "time",
-        "comparator": "<",
-        "value": 99.0
-      }
+      "cut": "momentum<99.0"
     },
     {
       "name": "hSurfaceId",
@@ -293,11 +250,7 @@
       "max_x": 10.0,
       "bin_width": 1.0,
       "variable": "surfaceId",
-      "cut": {
-        "variable": "",
-        "comparator": "noOp",
-        "value": 0.0
-      }
+      "cut": ""
     }
   ]
 }

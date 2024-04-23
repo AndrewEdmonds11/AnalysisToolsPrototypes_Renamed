@@ -29,7 +29,13 @@ using json = nlohmann::json;
 
 class Variable {
 public:
+  Variable() : func(noVar) { }
+
   Variable(const std::string& name) {
+    setFunc(name);
+  }
+
+  void setFunc(const std::string& name) {
     if (name == "momentum") {
       func = momentum;
     }
@@ -58,34 +64,52 @@ private:
 
 class Cut {
 public:
-  Cut(const json& config) : _var(config["variable"]), _value(config["value"]) {
-    if (config["comparator"] == ">") {
+  Cut(const std::string& cut) {
+    findComparator(cut);
+    if (cut != "") {
+      getVariable(cut);
+      getValue(cut);
+    }
+  }
+
+  void findComparator(const std::string& cut) {
+    if ((_opPosition = cut.find(">")) != std::string::npos) {
       func = this->greaterThan;
     }
-    else if (config["comparator"] == ">=") {
+    else if ((_opPosition = cut.find(">=")) != std::string::npos) {
       func = this->greaterThanEqualTo;
     }
-    else if (config["comparator"] == "<") {
+    else if ((_opPosition = cut.find("<")) != std::string::npos) {
       func = this->lessThan;
     }
-    else if (config["comparator"] == "<=") {
+    else if ((_opPosition = cut.find("<=")) != std::string::npos) {
       func = this->lessThanEqualTo;
     }
-    else if (config["comparator"] == "==") {
+    else if ((_opPosition = cut.find("==")) != std::string::npos) {
       func = this->equalTo;
     }
-    else if (config["comparator"] == "!=") {
+    else if ((_opPosition = cut.find("!=")) != std::string::npos) {
       func = this->notEqualTo;
     }
-    else if (config["comparator"] == "noOp") {
+    else if (cut == "") {
       func = this->noOp;
     }
+  }
+
+  void getVariable(const std::string& cut) {
+    std::string var_name = cut.substr(0, _opPosition);
+    _var.setFunc(var_name);
+  }
+
+  void getValue(const std::string& cut) {
+    _value = std::stod(cut.substr(_opPosition+1));
   }
 
   bool evaluate(const mu2e::KalIntersection& kinter) { return func(_var.getValue(kinter), _value); }
 
 private:
 
+  size_t _opPosition; // position of the operator
   double _value; // the cut value
 
   Variable _var;
