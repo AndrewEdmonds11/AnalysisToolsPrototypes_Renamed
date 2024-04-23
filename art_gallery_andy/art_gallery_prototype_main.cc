@@ -95,6 +95,9 @@ int main(int argc, char** argv) {
                   hist.Fill(kinter.momentum3().R());
                 }
               }
+              else if (hist_cfg["variable"] == "time") { // FIXME: a better way here?
+                hist.Fill(kinter.time());
+              }
             }
           }
         }

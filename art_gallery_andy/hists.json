@@ -45,6 +45,14 @@
       "bin_width": 0.5,
       "variable": "momentum",
       "time_cut": 900.0
+    },
+    {
+      "name": "hTime",
+      "title": "Time",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": "time"
     }
   ]
 }

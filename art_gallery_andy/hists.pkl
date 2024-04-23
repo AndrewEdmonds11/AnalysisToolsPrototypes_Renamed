@@ -15,6 +15,13 @@ class MomHist extends Hist {
       time_cut : Float = 0.0
 }
 
+class TimeHist extends Hist {
+      min_x = 0.0
+      max_x = 1700.0
+      bin_width = 10.0
+      variable = "time"
+}
+
 n_hists = 5
 hidden i_hists = IntSeq(0, n_hists-1) // "hidden" because IntSeq cannot be interpreted by JSON
 
@@ -24,6 +31,10 @@ hists {
       	time_cut = 500.0 + i_hist*100.0
         name = "hRecoMom_"+time_cut.toInt().toString()+"ns"
 	title = "Reco Mom (t > "+time_cut.toInt().toString()+" ns)"
-       }
+      }
+  }
+  new TimeHist {
+      name = "hTime"
+      title = "Time"
   }
 }

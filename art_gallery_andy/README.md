@@ -22,7 +22,10 @@ The compiled program takes three arguments:
  * a text file containing a list of files, and
  * the number of files to run over
 
-and reads in a JSON configuration file to make N histograms of the reconstructed momentum at the tracker entrance for downstream electron tracks. The N histograms can have different time cuts.
+The program reads the configuration file to make multiple histograms. Currently supported histograms:
+
+ * momentum at tracker entrance with time cuts
+ * time at tracker entrance (no cuts)
 
 ### How to Run
 ```
@@ -35,13 +38,13 @@ make
 ```
 
 ### How to Generate JSON File
-On my local machine, I'm using Apple's Pkl configuration language (https://pkl-lang.org/index.html) to create the JSON file. I write the ```hists.pkl``` file and generate the ```hists.json``` like so:
+On my local machine, I use Apple's Pkl configuration language (https://pkl-lang.org/index.html) to create the JSON file. I write the ```hists.pkl``` file and generate the ```hists.json``` like so:
 
 ```
 ./pkl eval -f json hists.pkl > hists.json
 ```
 
-Pkl does a bunch of validation checking
+Pkl does a bunch of validation checking and looks like it could be of general use.
 
 ## Pros and Cons
 
