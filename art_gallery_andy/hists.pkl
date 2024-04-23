@@ -1,3 +1,4 @@
+// Generic configurations for variables
 open class Variable {
       name : String = "no_var"
 }
@@ -10,16 +11,22 @@ class Time extends Variable {
       name = "time"
 }
 
+// Generic configurations for cuts
 open class Cut {
-      variable : String = "cut_variable"
+      variable : Variable
       comparator : String = "noOp"
       value : Float = 0.0
 }
 
 class TimeCut extends Cut {
-      variable : String = "time"
+      variable : Time
 }
 
+class MomCut extends Cut {
+      variable : Momentum
+}
+
+// Generic configurations for hists
 open class Hist {
       name : String = "default_name"
       title : String = "default_title"
@@ -34,7 +41,7 @@ class MomHist extends Hist {
       max_x = 110.0
       bin_width = 0.5
       variable : Momentum
-      time_cut : TimeCut 
+      cut : Cut
 }
 
 class TimeHist extends Hist {
@@ -42,29 +49,50 @@ class TimeHist extends Hist {
       max_x = 1700.0
       bin_width = 10.0
       variable : Time
-      time_cut : TimeCut
+      cut : Cut
 }
 
+// Configure the histograms we want
 n_hists = 5
 hidden i_hists = IntSeq(0, n_hists-1) // "hidden" because IntSeq cannot be interpreted by JSON
-
 hists {
+  new MomHist {
+      name = "hRecoMom"
+      title = "Reco Mom (no cuts)"
+  }
   for (i_hist in i_hists) {
       new MomHist {
-      	time_cut { comparator = ">"
-		 value = 500.0 + i_hist*100.0 }
-        name = "hRecoMom_gt"+time_cut.value.toInt().toString()+"ns"
-	title = "Reco Mom (t " + time_cut.comparator + " "+time_cut.value.toInt().toString()+" ns)"
+      	cut  = new TimeCut { comparator = ">" value = 500.0 + i_hist*100.0 }
+        name = "hRecoMom_gt"+cut.value.toInt().toString()+"ns"
+	title = "Reco Mom (t " + cut.comparator + " "+cut.value.toInt().toString()+" ns)"
       }
       new MomHist {
-      	time_cut { comparator = "<"
-		 value = 500.0 + i_hist*100.0 }
-        name = "hRecoMom_lt"+time_cut.value.toInt().toString()+"ns"
-	title = "Reco Mom (t " + time_cut.comparator + " "+time_cut.value.toInt().toString()+" ns)"
+      	cut = new TimeCut { comparator = "<" value = 500.0 + i_hist*100.0 }
+        name = "hRecoMom_lt"+cut.value.toInt().toString()+"ns"
+	title = "Reco Mom (t " + cut.comparator + " "+cut.value.toInt().toString()+" ns)"
+      }
+      new MomHist {
+      	cut  = new MomCut { comparator = ">" value = 98.0 + i_hist }
+        name = "hRecoMom_gt"+cut.value.toInt().toString()+"MeV"
+	title = "Reco Mom (p " + cut.comparator + " "+cut.value.toInt().toString()+" MeV)"
       }
   }
+
   new TimeHist {
       name = "hTime"
-      title = "Time"
+      title = "Time (no cuts)"
+  }
+
+  for (i_hist in i_hists) {
+      new TimeHist {
+      	cut = new MomCut { comparator = ">" value = 95.0 + i_hist }
+        name = "hTime_gt"+cut.value.toInt().toString()+"MeV"
+	title = "Reco Mom (p " + cut.comparator + " "+cut.value.toInt().toString()+" MeV/c)"
+      }
+      new TimeHist {
+      	cut = new MomCut { comparator = "<" value = 95.0 + i_hist }
+        name = "hTime_lt"+cut.value.toInt().toString()+"MeV"
+	title = "Reco Mom (p " + cut.comparator + " "+cut.value.toInt().toString()+" MeV/c)"
+      }
   }
 }

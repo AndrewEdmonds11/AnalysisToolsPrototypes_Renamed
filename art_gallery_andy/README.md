@@ -24,8 +24,8 @@ The compiled program takes three arguments:
 
 The program reads the configuration file to make multiple histograms. Currently supported histograms:
 
- * momentum at tracker entrance with time cuts (any of >, >=, <, <=, ==, !=)
- * time at tracker entrance (no cuts)
+ * momentum at tracker entrance with time or momentum cuts
+ * time at tracker entrance with time or momentum cuts
 
 ### How to Run
 ```
@@ -50,6 +50,7 @@ Pkl does a bunch of validation checking and looks like it could be of general us
 
 * ```Variable```: contains a pointer to a function that will return the requested variable
    * only ```KalIntersection``` momentum and time variables are supported at the moment
+   * a ```no_var``` will always return 0
 * ```Cut```: contains a "comparator" and "cut value"
    * "comparator" can be ```<, <=, >, >=, ==, !=, noOp``` where "noOp" always returns true
 * ```Hist```: contains a ```TH1F```, a ```Variable``` and a ```Cut```

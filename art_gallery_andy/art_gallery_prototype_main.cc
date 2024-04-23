@@ -36,6 +36,9 @@ public:
     else if (config["name"] == "time") {
       func = time;
     }
+    else if (config["name"] == "no_var") {
+      func = noVar;
+    }
   }
 
   double getValue(const mu2e::KalIntersection& kinter) { return func(kinter); }
@@ -45,12 +48,13 @@ private:
 
   static double momentum(const mu2e::KalIntersection& kinter) { return kinter.momentum3().R(); }
   static double time(const mu2e::KalIntersection& kinter) { return kinter.time(); }
+  static double noVar(const mu2e::KalIntersection& kinter) { return 0; }
 };
 
 
 class Cut {
 public:
-  Cut(const json& config) {
+  Cut(const json& config) : _var(config["variable"]), _value(config["value"]) {
     if (config["comparator"] == ">") {
       func = this->greaterThan;
     }
@@ -72,15 +76,15 @@ public:
     else if (config["comparator"] == "noOp") {
       func = this->noOp;
     }
-
-    _value = config["value"];
   }
 
-  bool evaluate(double input) { return func(input, _value); }
+  bool evaluate(const mu2e::KalIntersection& kinter) { return func(_var.getValue(kinter), _value); }
 
 private:
 
   double _value; // the cut value
+
+  Variable _var;
 
   bool (*func)(double, double);
 
@@ -131,7 +135,7 @@ int main(int argc, char** argv) {
   std::string json_filename = *(argv+1);
   std::ifstream json_file(json_filename.c_str());
   json config = json::parse(json_file);
-  std::cout << config["hists"] << std::endl;
+  //  std::cout << config["hists"] << std::endl;
 
   std::string filelist = *(argv+2);
   InputTag dem_tag{ "KKDeM" };
@@ -164,11 +168,11 @@ int main(int argc, char** argv) {
     std::string histtitle = hist_cfg["title"];
 
     const auto& variable_cfg = hist_cfg["variable"];
-    const auto& time_cut_cfg = hist_cfg["time_cut"];
+    const auto& cut_cfg = hist_cfg["cut"];
 
     allHists.emplace_back(Hist(TH1D(histname.c_str(), histtitle.c_str(), n_mom_bins,min_mom,max_mom),
                                Variable(variable_cfg),
-                               Cut(time_cut_cfg)
+                               Cut(cut_cfg)
                                ));
   }
 
@@ -188,7 +192,7 @@ int main(int argc, char** argv) {
             for (size_t i_hist = 0; i_hist < allHists.size(); ++i_hist) {
               auto& hist = allHists.at(i_hist);
 
-              if (hist.cut.evaluate(kinter.time())) {
+              if (hist.cut.evaluate(kinter)) {
                 hist.Fill(kinter);
               }
             }

@@ -2,6 +2,23 @@
   "n_hists": 5,
   "hists": [
     {
+      "name": "hRecoMom",
+      "title": "Reco Mom (no cuts)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": {
+        "name": "momentum"
+      },
+      "cut": {
+        "variable": {
+          "name": "no_var"
+        },
+        "comparator": "noOp",
+        "value": 0.0
+      }
+    },
+    {
       "name": "hRecoMom_gt500ns",
       "title": "Reco Mom (t > 500 ns)",
       "min_x": 90.0,
@@ -10,8 +27,10 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": ">",
         "value": 500.0
       }
@@ -25,10 +44,29 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": "<",
         "value": 500.0
+      }
+    },
+    {
+      "name": "hRecoMom_gt98MeV",
+      "title": "Reco Mom (p > 98 MeV)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": {
+        "name": "momentum"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 98.0
       }
     },
     {
@@ -40,8 +78,10 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": ">",
         "value": 600.0
       }
@@ -55,10 +95,29 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": "<",
         "value": 600.0
+      }
+    },
+    {
+      "name": "hRecoMom_gt99MeV",
+      "title": "Reco Mom (p > 99 MeV)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": {
+        "name": "momentum"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 99.0
       }
     },
     {
@@ -70,8 +129,10 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": ">",
         "value": 700.0
       }
@@ -85,10 +146,29 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": "<",
         "value": 700.0
+      }
+    },
+    {
+      "name": "hRecoMom_gt100MeV",
+      "title": "Reco Mom (p > 100 MeV)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": {
+        "name": "momentum"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 100.0
       }
     },
     {
@@ -100,8 +180,10 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": ">",
         "value": 800.0
       }
@@ -115,10 +197,29 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": "<",
         "value": 800.0
+      }
+    },
+    {
+      "name": "hRecoMom_gt101MeV",
+      "title": "Reco Mom (p > 101 MeV)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": {
+        "name": "momentum"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 101.0
       }
     },
     {
@@ -130,8 +231,10 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": ">",
         "value": 900.0
       }
@@ -145,25 +248,216 @@
       "variable": {
         "name": "momentum"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "time"
+        },
         "comparator": "<",
         "value": 900.0
       }
     },
     {
+      "name": "hRecoMom_gt102MeV",
+      "title": "Reco Mom (p > 102 MeV)",
+      "min_x": 90.0,
+      "max_x": 110.0,
+      "bin_width": 0.5,
+      "variable": {
+        "name": "momentum"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 102.0
+      }
+    },
+    {
       "name": "hTime",
-      "title": "Time",
+      "title": "Time (no cuts)",
       "min_x": 0.0,
       "max_x": 1700.0,
       "bin_width": 10.0,
       "variable": {
         "name": "time"
       },
-      "time_cut": {
-        "variable": "time",
+      "cut": {
+        "variable": {
+          "name": "no_var"
+        },
         "comparator": "noOp",
         "value": 0.0
+      }
+    },
+    {
+      "name": "hTime_gt95MeV",
+      "title": "Reco Mom (p > 95 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 95.0
+      }
+    },
+    {
+      "name": "hTime_lt95MeV",
+      "title": "Reco Mom (p < 95 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": "<",
+        "value": 95.0
+      }
+    },
+    {
+      "name": "hTime_gt96MeV",
+      "title": "Reco Mom (p > 96 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 96.0
+      }
+    },
+    {
+      "name": "hTime_lt96MeV",
+      "title": "Reco Mom (p < 96 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": "<",
+        "value": 96.0
+      }
+    },
+    {
+      "name": "hTime_gt97MeV",
+      "title": "Reco Mom (p > 97 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 97.0
+      }
+    },
+    {
+      "name": "hTime_lt97MeV",
+      "title": "Reco Mom (p < 97 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": "<",
+        "value": 97.0
+      }
+    },
+    {
+      "name": "hTime_gt98MeV",
+      "title": "Reco Mom (p > 98 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 98.0
+      }
+    },
+    {
+      "name": "hTime_lt98MeV",
+      "title": "Reco Mom (p < 98 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": "<",
+        "value": 98.0
+      }
+    },
+    {
+      "name": "hTime_gt99MeV",
+      "title": "Reco Mom (p > 99 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": ">",
+        "value": 99.0
+      }
+    },
+    {
+      "name": "hTime_lt99MeV",
+      "title": "Reco Mom (p < 99 MeV/c)",
+      "min_x": 0.0,
+      "max_x": 1700.0,
+      "bin_width": 10.0,
+      "variable": {
+        "name": "time"
+      },
+      "cut": {
+        "variable": {
+          "name": "momentum"
+        },
+        "comparator": "<",
+        "value": 99.0
       }
     }
   ]
