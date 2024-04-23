@@ -23,7 +23,7 @@ The compiled program takes two arguments:
 
 and reads in a JSON configuration file to make N histograms of the reconstructed momentum at the tracker entrance for downstream electron tracks.
 
-At the moment, the location of the configuration file is hard-coded, and the code only uses it to make histograms with different axis ranges.
+At the moment, the location of the configuration file is hard-coded. The code also only produces momentum histograms with time cuts (all defined in the configuration file)
 
 ### How to Run
 ```
@@ -57,10 +57,12 @@ Andy's Cons:
  * will need to build our own configuration interface to e.g. have user choose histogram limits, cuts etc.
 
 ## Next Steps
-* Make histograms with time cuts
-* Add a simple configuration interface?
+* For ROOT macro
+  * Make histograms with time cuts
+  * Add a simple configuration interface?
 * For compiled program:
   * make argument parsing safer
+  * make configuration file an input argument
 
 ## Other notes
 

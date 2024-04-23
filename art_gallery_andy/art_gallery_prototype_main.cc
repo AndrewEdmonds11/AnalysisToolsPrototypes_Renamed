@@ -60,11 +60,13 @@ int main(int argc, char** argv) {
 
 
   // Make histogram
+  const auto& allHistsCfg = config["hists"];
   std::vector<TH1D> allHists;
-  for (const auto& hist_cfg : config["hists"]) {
+  for (const auto& hist_cfg : allHistsCfg) {
     double min_mom = hist_cfg["min_x"];
     double max_mom = hist_cfg["max_x"];
-    int n_mom_bins = hist_cfg["n_x_bins"];
+    double bin_width = hist_cfg["bin_width"];
+    int n_mom_bins = (max_mom - min_mom) / bin_width;
     std::string histname = hist_cfg["name"];
     std::string histtitle = hist_cfg["title"];
     allHists.emplace_back(TH1D(histname.c_str(), histtitle.c_str(), n_mom_bins,min_mom,max_mom));
@@ -83,8 +85,15 @@ int main(int argc, char** argv) {
         for(size_t ikinter = 0; ikinter < dem.intersections().size(); ++ikinter){
           auto const& kinter = dem.intersections()[ikinter];
           if (kinter.surfaceId() == mu2e::SurfaceIdDetail::TT_Front) {
-            for (auto& hist : allHists) {
-              hist.Fill(kinter.momentum3().R());
+            for (size_t i_hist = 0; i_hist < allHists.size(); ++i_hist) {
+              auto& hist = allHists.at(i_hist);
+              const auto& hist_cfg = allHistsCfg.at(i_hist);
+
+              if (hist_cfg["variable"] == "momentum") { // FIXME: a better way here?
+                if (kinter.time() > hist_cfg["time_cut"]) {
+                  hist.Fill(kinter.momentum3().R());
+                }
+              }
             }
           }
         }

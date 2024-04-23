@@ -2,39 +2,49 @@
   "n_hists": 5,
   "hists": [
     {
-      "name": "hRecoMom0",
-      "title": "Histogram 0",
-      "min_x": 50,
+      "name": "hRecoMom_500ns",
+      "title": "Reco Mom (t > 500 ns)",
+      "min_x": 90.0,
       "max_x": 110.0,
-      "n_x_bins": 60
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": 500.0
     },
     {
-      "name": "hRecoMom1",
-      "title": "Histogram 1",
-      "min_x": 60,
+      "name": "hRecoMom_600ns",
+      "title": "Reco Mom (t > 600 ns)",
+      "min_x": 90.0,
       "max_x": 110.0,
-      "n_x_bins": 50
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": 600.0
     },
     {
-      "name": "hRecoMom2",
-      "title": "Histogram 2",
-      "min_x": 70,
+      "name": "hRecoMom_700ns",
+      "title": "Reco Mom (t > 700 ns)",
+      "min_x": 90.0,
       "max_x": 110.0,
-      "n_x_bins": 40
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": 700.0
     },
     {
-      "name": "hRecoMom3",
-      "title": "Histogram 3",
-      "min_x": 80,
+      "name": "hRecoMom_800ns",
+      "title": "Reco Mom (t > 800 ns)",
+      "min_x": 90.0,
       "max_x": 110.0,
-      "n_x_bins": 30
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": 800.0
     },
     {
-      "name": "hRecoMom4",
-      "title": "Histogram 4",
-      "min_x": 90,
+      "name": "hRecoMom_900ns",
+      "title": "Reco Mom (t > 900 ns)",
+      "min_x": 90.0,
       "max_x": 110.0,
-      "n_x_bins": 20
+      "bin_width": 0.5,
+      "variable": "momentum",
+      "time_cut": 900.0
     }
   ]
 }
