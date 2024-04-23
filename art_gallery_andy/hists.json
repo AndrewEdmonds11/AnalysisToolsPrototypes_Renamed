@@ -137,7 +137,12 @@
       "min_x": 0.0,
       "max_x": 1700.0,
       "bin_width": 10.0,
-      "variable": "time"
+      "variable": "time",
+      "time_cut": {
+        "variable": "time",
+        "comparator": "noOp",
+        "value": 0.0
+      }
     }
   ]
 }

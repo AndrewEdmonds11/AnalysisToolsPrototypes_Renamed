@@ -46,6 +46,13 @@ On my local machine, I use Apple's Pkl configuration language (https://pkl-lang.
 
 Pkl does a bunch of validation checking and looks like it could be of general use.
 
+### Classes
+
+* ```Cut```: contains a "comparator" and "cut value"
+   * "comparator" can be "noOp" which always returns true
+* ```Hist```: contains a ```TH1F``` and a ```Cut```
+   * the ```Cut``` can be a "noOp" if no cut is wanted
+
 ## Pros and Cons
 
 Andy's Pros:

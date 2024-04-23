@@ -48,11 +48,18 @@ public:
     else if (config["comparator"] == "!=") {
       func = this->notEqualTo;
     }
+    else if (config["comparator"] == "noOp") {
+      func = this->noOp;
+    }
+
+    _value = config["value"];
   }
 
-  bool evaluate(double input, double check) { return func(input, check); }
+  bool evaluate(double input) { return func(input, _value); }
 
 private:
+
+  double _value; // the cut value
 
   bool (*func)(double, double);
 
@@ -74,6 +81,17 @@ private:
   static bool notEqualTo(double input, double check) {
     return input != check;
   }
+  static bool noOp(double input, double check) {
+    return true;
+  }
+};
+
+class Hist {
+public:
+  Hist(TH1D hist, Cut cut) : hist(hist), cut(cut) { }
+
+  TH1D hist;
+  Cut cut;
 };
 
 int main(int argc, char** argv) {
@@ -111,7 +129,7 @@ int main(int argc, char** argv) {
 
   // Make histogram
   const auto& allHistsCfg = config["hists"];
-  std::vector<TH1D> allHists;
+  std::vector<Hist> allHists;
   for (const auto& hist_cfg : allHistsCfg) {
     double min_mom = hist_cfg["min_x"];
     double max_mom = hist_cfg["max_x"];
@@ -119,7 +137,12 @@ int main(int argc, char** argv) {
     int n_mom_bins = (max_mom - min_mom) / bin_width;
     std::string histname = hist_cfg["name"];
     std::string histtitle = hist_cfg["title"];
-    allHists.emplace_back(TH1D(histname.c_str(), histtitle.c_str(), n_mom_bins,min_mom,max_mom));
+
+    const auto& time_cut_cfg = hist_cfg["time_cut"];
+    std::cout << time_cut_cfg << std::endl;
+    allHists.emplace_back(Hist(TH1D(histname.c_str(), histtitle.c_str(), n_mom_bins,min_mom,max_mom),
+                               Cut(time_cut_cfg)
+                               ));
   }
 
   // We'll record the time it takes to process each gallery::Event.
@@ -136,13 +159,13 @@ int main(int argc, char** argv) {
           auto const& kinter = dem.intersections()[ikinter];
           if (kinter.surfaceId() == mu2e::SurfaceIdDetail::TT_Front) {
             for (size_t i_hist = 0; i_hist < allHists.size(); ++i_hist) {
-              auto& hist = allHists.at(i_hist);
+              auto& hist = allHists.at(i_hist).hist;
+              auto& cut = allHists.at(i_hist).cut;
+
               const auto& hist_cfg = allHistsCfg.at(i_hist);
 
               if (hist_cfg["variable"] == "momentum") { // FIXME: a better way here?
-                const auto& time_cut_cfg = hist_cfg["time_cut"];
-                Cut time_cut(time_cut_cfg);
-                if (time_cut.evaluate(kinter.time(), time_cut_cfg["value"])) {
+                if (cut.evaluate(kinter.time())) {
                   hist.Fill(kinter.momentum3().R());
                 }
               }
@@ -160,7 +183,7 @@ int main(int argc, char** argv) {
 
   TFile outfile("main_output.root", "RECREATE");
   for (auto& hist : allHists) {
-    hist.Write();
+    hist.hist.Write();
   }
   outfile.Close();
 
