@@ -38,24 +38,35 @@ hidden mom_cut_values { for (i_hist in i_hists) { 95.0+i_hist } }
 
 hists {
   new MomHist {
-      name = "hRecoMom"
+      name = "hRecoMomAll"
       title = "Reco Mom (no cuts)"
   }
+  new MomHist {
+      name = "hRecoMomEnt"
+      title = "Reco Mom @ Entrance (no cuts)"
+      cut  = "surfaceId==0"
+  }
+  new MomHist {
+      name = "hRecoMomMid"
+      title = "Reco Mom @ Middle (no cuts)"
+      cut  = "surfaceId==1"
+  }
+  new MomHist {
+      name = "hRecoMomXit"
+      title = "Reco Mom @ Exit (no cuts)"
+      cut  = "surfaceId==2"
+  }
+
   for (time_cut_val in time_cut_values) {
       new MomHist {
-      	cut  = "time>"+time_cut_val.toString()
-        name = "hRecoMom_gt"+time_cut_val.toInt().toString()+"ns"
-	title = "Reco Mom (t > "+time_cut_val.toInt().toString()+" ns)"
+      	cut  = "time>"+time_cut_val.toString() + " && surfaceId==0"
+        name = "hRecoMomEnt_gt"+time_cut_val.toInt().toString()+"ns"
+	title = "Reco Mom @ Entrance (t > "+time_cut_val.toInt().toString()+" ns)"
       }
       new MomHist {
-      	cut = "time<"+time_cut_val.toString()
-        name = "hRecoMom_lt"+time_cut_val.toInt().toString()+"ns"
-	title = "Reco Mom (t < "+time_cut_val.toInt().toString()+" ns)"
-      }
-      new TimeHist {
-      	cut = "time>"+time_cut_val.toString()
-        name = "hTime_gt"+time_cut_val.toInt().toString()+"ns"
-	title = "Time (t > "+time_cut_val.toInt().toString()+" ns)"
+      	cut = "time<"+time_cut_val.toString() + " && surfaceId==0"
+        name = "hRecoMomEnt_lt"+time_cut_val.toInt().toString()+"ns"
+	title = "Reco Mom @ Entrance (t < "+time_cut_val.toInt().toString()+" ns)"
       }
   }
 
@@ -63,22 +74,49 @@ hists {
       name = "hTime"
       title = "Time (no cuts)"
   }
-
+  new TimeHist {
+      name = "hTimeEnt"
+      title = "Time @ Entrance (no cuts)"
+  }
+  new TimeHist {
+      name = "hTimeMid"
+      title = "Time @ Middle (no cuts)"
+  }
+  new TimeHist {
+      name = "hTimeXit"
+      title = "Time @ Exit (no cuts)"
+  }
   for (mom_cut_val in mom_cut_values) {
       new TimeHist {
-      	cut = "momentum>"+mom_cut_val.toString()
-        name = "hTime_gt"+mom_cut_val.toInt().toString()+"MeV"
-	title = "Reco Mom (p > "+mom_cut_val.toInt().toString()+" MeV/c)"
+      	cut = "momentum>"+mom_cut_val.toString()+" && surfaceId==0"
+        name = "hTimeEnt_gt"+mom_cut_val.toInt().toString()+"MeV"
+	title = "Time @ Entrance (p > "+mom_cut_val.toInt().toString()+" MeV/c)"
       }
       new TimeHist {
-      	cut = "momentum<"+mom_cut_val.toString()
-        name = "hTime_lt"+mom_cut_val.toInt().toString()+"MeV"
-	title = "Reco Mom (p < "+mom_cut_val.toInt().toString()+" MeV/c)"
+      	cut = "momentum<"+mom_cut_val.toString()+" && surfaceId==0"
+        name = "hTimeEnt_lt"+mom_cut_val.toInt().toString()+"MeV"
+	title = "Time @ Entrance (p < "+mom_cut_val.toInt().toString()+" MeV/c)"
       }
   }
+  for (time_cut_val in time_cut_values) {
+      new TimeHist {
+      	cut = "time>"+time_cut_val.toString() + " && surfaceId==0"
+        name = "hTimeEnt_gt"+time_cut_val.toInt().toString()+"ns"
+	title = "Time @ Entrance (t > "+time_cut_val.toInt().toString()+" ns)"
+      }
+   }
+
 
   new SurfaceIdHist {
       name = "hSurfaceId"
       title = "Surface ID"
+  }
+
+  for (mom_cut_val in mom_cut_values) {
+    new SurfaceIdHist {
+       	cut = "momentum>"+mom_cut_val.toString()
+        name = "hSurfaceId_gt"+mom_cut_val.toInt().toString()+"MeV"
+    	title = "Surface ID (p > "+mom_cut_val.toInt().toString()+" MeV/c)"
+    }
   }
 }

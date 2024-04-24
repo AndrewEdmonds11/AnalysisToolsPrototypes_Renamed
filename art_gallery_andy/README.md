@@ -22,11 +22,10 @@ The compiled program takes three arguments:
  * a text file containing a list of files, and
  * the number of files to run over
 
-The program reads the configuration file to make multiple histograms. Currently supported histograms:
-
- * momentum at tracker entrance with time or momentum cuts
- * time at tracker entrance with time or momentum cuts
- * surface id (still need to test whether cuts work)
+The program reads the configuration file to make multiple histograms. It current supports plotting and cutting on the following variables:
+ * tracker fit momentum (```"momentum"```)
+ * tracker fit time (```"time"````)
+ * tracker fit surface id (```"surfaceId"```, 0 = entrance, 1 = middle, 2 = exit)
 
 ### How to Run
 ```
@@ -56,9 +55,10 @@ Pkl does a bunch of validation checking and looks like it could be of general us
        * ```"time"``` is track time
        * ```"surfaceId"``` is the track surface ID
    * default: ```""``` will always return 0
-* ```Cut```: from a given cut string, it determines the function to use and value to compare against
+* ```SingleCut```: from a given string, it determines the variable, comparison operator, and value to compare against
    * defined in configuration as a simple string like ```"variable>number"```
-   * multiple cuts are not currently supported
+* ```Cut```: starts to handle multiple cuts
+   * currently only two ```SingleCuts``` with an ```&&``` is supported
 * ```Hist```: contains a ```TH1F```, a ```Variable``` and a ```Cut```
 
 ## Pros and Cons

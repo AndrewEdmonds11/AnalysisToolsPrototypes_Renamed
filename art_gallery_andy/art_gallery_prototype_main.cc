@@ -29,6 +29,8 @@ using json = nlohmann::json;
 
 class Variable {
 public:
+  enum {DOUBLE, INT} type;
+
   Variable() : func(noVar) { }
 
   Variable(const std::string& name) {
@@ -36,35 +38,51 @@ public:
   }
 
   void setFunc(const std::string& name) {
-    if (name == "momentum") {
+    if (name.find("momentum") != std::string::npos) {
+      type = Variable::DOUBLE;
       func = momentum;
     }
-    else if (name == "time") {
+    else if (name.find("time") != std::string::npos) {
+      type = Variable::DOUBLE;
       func = time;
     }
-    else if (name == "surfaceId") {
+    else if (name.find("surfaceId") != std::string::npos) {
+      type = Variable::INT;
       func = surfaceId;
     }
     else if (name == "") {
+      type = Variable::DOUBLE;
       func = noVar;
     }
   }
 
-  double getValue(const mu2e::KalIntersection& kinter) { return func(kinter); }
+  double getValue(const mu2e::KalIntersection& kinter) const {
+    switch(type) {
+    case Variable::DOUBLE:
+      return std::get<double (*)(const mu2e::KalIntersection& kinter)>(func)(kinter);
+    case Variable::INT:
+      return std::get<int (*)(const mu2e::KalIntersection& kinter)>(func)(kinter);
+    default:
+      return 0;
+    }
+  }
 
 private:
-  double (*func)(const mu2e::KalIntersection& kinter);
+  std::variant<double (*)(const mu2e::KalIntersection& kinter),
+               int (*)(const mu2e::KalIntersection& kinter)> func;
 
   static double momentum(const mu2e::KalIntersection& kinter) { return kinter.momentum3().R(); }
   static double time(const mu2e::KalIntersection& kinter) { return kinter.time(); }
-  static double surfaceId(const mu2e::KalIntersection& kinter) { return kinter.surfaceId().id(); }
+  static int surfaceId(const mu2e::KalIntersection& kinter) { return kinter.surfaceId().id(); }
   static double noVar(const mu2e::KalIntersection& kinter) { return 0; }
 };
 
 
-class Cut {
+class SingleCut {
 public:
-  Cut(const std::string& cut) {
+  std::string _cut;
+
+  SingleCut(const std::string& cut) : _cut(cut) {
     findComparator(cut);
     if (cut != "") {
       getVariable(cut);
@@ -73,22 +91,28 @@ public:
   }
 
   void findComparator(const std::string& cut) {
-    if ((_opPosition = cut.find(">")) != std::string::npos) {
+    if ((_opStartPos = cut.find(">")) != std::string::npos) {
+      _opEndPos = _opStartPos+1;
       func = this->greaterThan;
     }
-    else if ((_opPosition = cut.find(">=")) != std::string::npos) {
+    else if ((_opStartPos = cut.find(">=")) != std::string::npos) {
+      _opEndPos = _opStartPos+2;
       func = this->greaterThanEqualTo;
     }
-    else if ((_opPosition = cut.find("<")) != std::string::npos) {
+    else if ((_opStartPos = cut.find("<")) != std::string::npos) {
+      _opEndPos = _opStartPos+1;
       func = this->lessThan;
     }
-    else if ((_opPosition = cut.find("<=")) != std::string::npos) {
+    else if ((_opStartPos = cut.find("<=")) != std::string::npos) {
+      _opEndPos = _opStartPos+2;
       func = this->lessThanEqualTo;
     }
-    else if ((_opPosition = cut.find("==")) != std::string::npos) {
+    else if ((_opStartPos = cut.find("==")) != std::string::npos) {
+      _opEndPos = _opStartPos+2;
       func = this->equalTo;
     }
-    else if ((_opPosition = cut.find("!=")) != std::string::npos) {
+    else if ((_opStartPos = cut.find("!=")) != std::string::npos) {
+      _opEndPos = _opStartPos+2;
       func = this->notEqualTo;
     }
     else if (cut == "") {
@@ -97,24 +121,45 @@ public:
   }
 
   void getVariable(const std::string& cut) {
-    std::string var_name = cut.substr(0, _opPosition);
+    std::string var_name = cut.substr(0, _opStartPos);
     _var.setFunc(var_name);
   }
 
   void getValue(const std::string& cut) {
-    _value = std::stod(cut.substr(_opPosition+1));
+    switch(_var.type) {
+    case Variable::DOUBLE:
+      _value = std::stod(cut.substr(_opEndPos));
+      break;
+    case Variable::INT:
+      _value = std::stoi(cut.substr(_opEndPos));
+      break;
+    default:
+      _value = 0.0;
+      break;
+    }
   }
 
-  bool evaluate(const mu2e::KalIntersection& kinter) { return func(_var.getValue(kinter), _value); }
+  bool evaluate(const mu2e::KalIntersection& kinter) const {
+    switch(_var.type) {
+    case Variable::DOUBLE:
+      return std::get<bool (*)(double, double)>(func)(_var.getValue(kinter), std::get<double>(_value));
+    case Variable::INT:
+      return std::get<bool (*)(int, int)>(func)(_var.getValue(kinter), std::get<int>(_value));
+    default:
+      return true;
+    }
+  }
 
 private:
 
-  size_t _opPosition; // position of the operator
-  double _value; // the cut value
+  size_t _opStartPos; // position of the operator
+  size_t _opEndPos; // position of the end of the operator
+  std::variant<double, int> _value; // the cut value
 
   Variable _var;
 
-  bool (*func)(double, double);
+  std::variant <bool (*)(double, double),
+                bool (*)(int, int)> func;
 
   static bool greaterThan(double input, double check) {
     return input > check;
@@ -128,7 +173,7 @@ private:
   static bool lessThanEqualTo(double input, double check) {
     return input <= check;
   }
-  static bool equalTo(double input, double check) {
+  static bool equalTo(int input, int check) {
     return input == check;
   }
   static bool notEqualTo(double input, double check) {
@@ -137,6 +182,34 @@ private:
   static bool noOp(double input, double check) {
     return true;
   }
+};
+
+class Cut {
+public:
+  Cut(const std::string& cut) {
+    std::string_view view(cut);
+    size_t opPos;
+    if ((opPos = view.find("&&")) != std::string::npos) {
+      _cuts.emplace_back(SingleCut(cut.substr(0, opPos)));
+      _cuts.emplace_back(SingleCut(cut.substr(opPos+2)));
+    }
+    else {
+      _cuts.emplace_back(SingleCut(cut));
+    }
+  }
+
+  bool evaluate(const mu2e::KalIntersection& kinter) const {
+    bool result = true;
+    for (const auto& cut : _cuts) {
+      //      std::cout << (int)kinter.surfaceId().id() << std::endl;
+      //      std::cout << "AE: cut._cut = " << cut._cut << std::boolalpha << (cut.evaluate(kinter)) << std::endl;
+      result &= cut.evaluate(kinter);
+    }
+    return result;
+  }
+private:
+  std::vector<SingleCut> _cuts;
+
 };
 
 class Hist {
@@ -216,15 +289,14 @@ int main(int argc, char** argv) {
       for (const auto& dem : dems) {
         for(size_t ikinter = 0; ikinter < dem.intersections().size(); ++ikinter){
           auto const& kinter = dem.intersections()[ikinter];
-          if (kinter.surfaceId() == mu2e::SurfaceIdDetail::TT_Front) {
-            for (size_t i_hist = 0; i_hist < allHists.size(); ++i_hist) {
-              auto& hist = allHists.at(i_hist);
 
-              if (hist.cut.evaluate(kinter)) {
-                hist.Fill(kinter);
-              }
+          for (size_t i_hist = 0; i_hist < allHists.size(); ++i_hist) {
+            auto& hist = allHists.at(i_hist);
+            if (hist.cut.evaluate(kinter)) {
+              hist.Fill(kinter);
             }
           }
+
         }
       }
     }
