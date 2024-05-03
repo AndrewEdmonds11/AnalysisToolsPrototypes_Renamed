@@ -38,10 +38,16 @@ make
 ```
 
 ### How to Generate JSON File
-On my local machine, I use Apple's Pkl configuration language (https://pkl-lang.org/index.html) to create the JSON file. I write the ```hists.pkl``` file and generate the ```hists.json``` like so:
+You can generate the JSON file using Apple's Pkl configuration language (https://pkl-lang.org/index.html). This isn't centrally available on the mu2egpvms at the moment but can be downloaded easily by:
 
 ```
-./pkl eval -f json hists.pkl > hists.json
+curl -L -o pkl https://github.com/apple/pkl/releases/download/0.25.3/pkl-linux-amd64
+chmod u+x pkl
+```
+
+Then, to create the JSON file, you can write a ```.pkl``` file (see ```example.pkl```) for an example and generate the ```.json``` like so:
+```
+./pkl eval -f json configs/pkl/example.pkl >| configs/json/example.json
 ```
 
 Pkl does a bunch of validation checking and looks like it could be of general use.
@@ -80,6 +86,9 @@ Andy's Cons:
   * Add a simple configuration interface?
 * For compiled program:
   * make argument parsing safer
+  * multiple cuts
+  * mathematical operations of variables (reinventing the ROOT TFormula's?)
+  * add TTree as an optional output for unbinned fits
 
 ## Other notes
 

@@ -1,34 +1,4 @@
-// Generic configurations for hists
-open class Hist {
-      name : String = "default_name"
-      title : String = "default_title"
-      min_x : Float = 0.0
-      max_x : Float(this>min_x) = 0.0
-      bin_width : Float(this>0) = 0.0
-      variable : String = ""
-      cut : String = ""
-}
-
-class MomHist extends Hist {
-      min_x = 90.0
-      max_x = 110.0
-      bin_width = 0.5
-      variable : "momentum"
-}
-
-class TimeHist extends Hist {
-      min_x = 0.0
-      max_x = 1700.0
-      bin_width = 10.0
-      variable : "time"
-}
-
-class SurfaceIdHist extends Hist {
-      min_x = 0.0
-      max_x = 10.0
-      bin_width = 1.0
-      variable : "surfaceId"
-}
+import "Hists.pkl"
 
 // Configure the histograms we want
 hidden n_hists = 5
@@ -37,69 +7,69 @@ hidden time_cut_values { for (i_hist in i_hists) { 500.0+i_hist*100.0 } }
 hidden mom_cut_values { for (i_hist in i_hists) { 95.0+i_hist } }
 
 hists {
-  new MomHist {
+  new Hists.MomHist {
       name = "hRecoMomAll"
       title = "Reco Mom (no cuts)"
   }
-  new MomHist {
+  new Hists.MomHist {
       name = "hRecoMomEnt"
       title = "Reco Mom @ Entrance (no cuts)"
       cut  = "surfaceId==0"
   }
-  new MomHist {
+  new Hists.MomHist {
       name = "hRecoMomMid"
       title = "Reco Mom @ Middle (no cuts)"
       cut  = "surfaceId==1"
   }
-  new MomHist {
+  new Hists.MomHist {
       name = "hRecoMomXit"
       title = "Reco Mom @ Exit (no cuts)"
       cut  = "surfaceId==2"
   }
 
   for (time_cut_val in time_cut_values) {
-      new MomHist {
+      new Hists.MomHist {
       	cut  = "time>"+time_cut_val.toString() + " && surfaceId==0"
         name = "hRecoMomEnt_gt"+time_cut_val.toInt().toString()+"ns"
 	title = "Reco Mom @ Entrance (t > "+time_cut_val.toInt().toString()+" ns)"
       }
-      new MomHist {
+      new Hists.MomHist {
       	cut = "time<"+time_cut_val.toString() + " && surfaceId==0"
         name = "hRecoMomEnt_lt"+time_cut_val.toInt().toString()+"ns"
 	title = "Reco Mom @ Entrance (t < "+time_cut_val.toInt().toString()+" ns)"
       }
   }
 
-  new TimeHist {
+  new Hists.TimeHist {
       name = "hTime"
       title = "Time (no cuts)"
   }
-  new TimeHist {
+  new Hists.TimeHist {
       name = "hTimeEnt"
       title = "Time @ Entrance (no cuts)"
   }
-  new TimeHist {
+  new Hists.TimeHist {
       name = "hTimeMid"
       title = "Time @ Middle (no cuts)"
   }
-  new TimeHist {
+  new Hists.TimeHist {
       name = "hTimeXit"
       title = "Time @ Exit (no cuts)"
   }
   for (mom_cut_val in mom_cut_values) {
-      new TimeHist {
+      new Hists.TimeHist {
       	cut = "momentum>"+mom_cut_val.toString()+" && surfaceId==0"
         name = "hTimeEnt_gt"+mom_cut_val.toInt().toString()+"MeV"
 	title = "Time @ Entrance (p > "+mom_cut_val.toInt().toString()+" MeV/c)"
       }
-      new TimeHist {
+      new Hists.TimeHist {
       	cut = "momentum<"+mom_cut_val.toString()+" && surfaceId==0"
         name = "hTimeEnt_lt"+mom_cut_val.toInt().toString()+"MeV"
 	title = "Time @ Entrance (p < "+mom_cut_val.toInt().toString()+" MeV/c)"
       }
   }
   for (time_cut_val in time_cut_values) {
-      new TimeHist {
+      new Hists.TimeHist {
       	cut = "time>"+time_cut_val.toString() + " && surfaceId==0"
         name = "hTimeEnt_gt"+time_cut_val.toInt().toString()+"ns"
 	title = "Time @ Entrance (t > "+time_cut_val.toInt().toString()+" ns)"
@@ -107,13 +77,13 @@ hists {
    }
 
 
-  new SurfaceIdHist {
+  new Hists.SurfaceIdHist {
       name = "hSurfaceId"
       title = "Surface ID"
   }
 
   for (mom_cut_val in mom_cut_values) {
-    new SurfaceIdHist {
+    new Hists.SurfaceIdHist {
        	cut = "momentum>"+mom_cut_val.toString()
         name = "hSurfaceId_gt"+mom_cut_val.toInt().toString()+"MeV"
     	title = "Surface ID (p > "+mom_cut_val.toInt().toString()+" MeV/c)"
