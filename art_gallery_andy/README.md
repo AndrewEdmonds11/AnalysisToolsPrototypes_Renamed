@@ -27,6 +27,8 @@ The program reads the configuration file to make multiple histograms. It current
  * tracker fit time (```"time"````)
  * tracker fit surface id (```"surfaceId"```, 0 = entrance, 1 = middle, 2 = exit)
 
+Note: this works on both SL7 and AL9 nodes
+
 ### How to Run
 ```
 source setup.sh
