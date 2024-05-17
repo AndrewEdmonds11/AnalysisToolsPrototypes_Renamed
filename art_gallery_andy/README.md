@@ -86,9 +86,10 @@ Andy's Cons:
   * Add a simple configuration interface?
 * For compiled program:
   * make argument parsing safer
-  * multiple cuts
+  * multiple cuts (including event-level cuts)
   * mathematical operations of variables (reinventing the ROOT TFormula's?)
   * add TTree as an optional output for unbinned fits
+  * how to define collections to loop over
 
 ## Other notes
 
