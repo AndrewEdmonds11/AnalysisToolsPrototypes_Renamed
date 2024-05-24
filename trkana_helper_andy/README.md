@@ -1,15 +1,13 @@
 # Prototypes TrkAna helper programs
 
 ## Introduction
-The analysis tools survey showed that there are 
+The analysis tools survey showed that we need better documentation. The prototypes built here show a way in which we can enhance TrkAna InfoStructs so that help is avialable either on the command line or within a python environment.
 
-These prototypes show how we can write InfoStructs so that they have useful help functions that can be called in a C++ utility progam or python script.
-
-Note that I have only converted EventInfo (all leaves) and TrkInfo (```status```, ```nhits```, and ```nactive``` leaves).
+Note that these prototypes can only provied help on the EventInfo branch (all leaves) and the TrkInfo branch (```status```, ```nhits```, and ```nactive``` leaves). Further work would be needed to convert all branches.
 
 ## Setup
 
-To set up this prototype:
+To set up and build the prototypes:
 
 ```
 cd /to/trkana_helper_andy/
@@ -72,6 +70,6 @@ nactive = total number of used hits on the track
 You should also be able to to this in a python notebook too!
 
 ## Comments
-If we want to go this way, then we might want to consider splitting the InfoStructs into their own repository since they shouldn't be dependent on art
+If we want to go this way, then we might want to consider splitting the InfoStructs into their own repository since they shouldn't be dependent on art etc.
 
-We will also need to update all InfoStructs to provide the useful information
+We will also need to update all InfoStructs to provide the useful information.
