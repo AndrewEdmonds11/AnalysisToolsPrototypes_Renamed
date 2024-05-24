@@ -32,6 +32,7 @@ muse setup
 ## trkanahelp program
 A command line program can allow for branch and leaf definitions to be available quite easily
 
+```
 > trkanahelp
 
       trkanahelp [OPTIONS] BRANCH.LEAF [BRANCH.LEAF2 ... ]
