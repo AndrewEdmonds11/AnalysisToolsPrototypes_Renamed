@@ -1,7 +1,7 @@
 # Prototypes TrkAna helper programs
 
 ## Introduction
-The analysis tools survey showed that we need better documentation. The prototypes built here show a way in which we can enhance TrkAna InfoStructs so that help is avialable either on the command line or within a python environment.
+The analysis tools survey showed that we need useful documentation of any ntuples we produce. The prototypes built here show a way in which we can enhance TrkAna InfoStructs so that help is avialable either on the command line or within a python environment.
 
 Note that these prototypes can only provied help on the EventInfo branch (all leaves) and the TrkInfo branch (```status```, ```nhits```, and ```nactive``` leaves). Further work would be needed to convert all branches.
 
